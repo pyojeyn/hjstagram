@@ -1,0 +1,22 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node -r esm src"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "esm": "^3.2.25",
+    "joi": "^17.4.2",
+    "jsonwebtoken": "^8.5.1",
+    "koa": "^2.13.3",
+    "koa-bodyparser": "^4.3.0",
+    "koa-router": "^10.1.1",
+    "mongoose": "^6.0.9",
+    "sanitize-html": "^2.5.1"
+  }
+}
