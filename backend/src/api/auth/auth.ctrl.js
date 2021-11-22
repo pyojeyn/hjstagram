@@ -184,7 +184,7 @@ export const changePassword = async (ctx) => {
         if(!valid) {
             console.log('비밀번호 맞는지 확인');
             ctx.status = 401;
-            return;
+            return false;
         }
         if (valid) {
             // change to new password

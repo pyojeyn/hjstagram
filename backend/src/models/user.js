@@ -66,13 +66,13 @@ UserSchema.methods.checkPassword = async function(password){
 
     
 //여기만 고쳐야될거 같은데..
-UserSchema.pre('save', function (next){
+UserSchema.pre('save', async function (next){
     console.log('왜 안되니? ㅎㅎ');
     if(!this.isModified('hashedpassword')){ // 3-1
       console.log('비밀번호 수정 안됨')   
       return next();
     }else {
-        this.hashedpassword = this.setPassword(this.hashedpassword);
+        this.hashedpassword = await bcrypt.hash(this.hashedpassword,10);
         console.log('비밀번호바뀜')
       return next();
     }
