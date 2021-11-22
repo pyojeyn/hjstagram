@@ -67,13 +67,12 @@ UserSchema.methods.checkPassword = async function(password){
     
 //여기만 고쳐야될거 같은데..
 UserSchema.pre('save', function (next){
-    const user = this;
     console.log('왜 안되니? ㅎㅎ');
-    if(!user.isModified('hashedpassword')){ // 3-1
+    if(!this.isModified('hashedpassword')){ // 3-1
       console.log('비밀번호 수정 안됨')   
       return next();
     }else {
-        user.hashedpassword = user.setPassword(user.password);
+        this.hashedpassword = this.setPassword(this.hashedpassword);
         console.log('비밀번호바뀜')
       return next();
     }

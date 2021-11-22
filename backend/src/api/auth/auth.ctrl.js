@@ -188,7 +188,7 @@ export const changePassword = async (ctx) => {
         }
         if (valid) {
             // change to new password
-            user.password = newPassword;
+            user.hashedpassword = newPassword;
             console.log('비밀번호 바꿈');
             user.save();
             console.log('저장')
