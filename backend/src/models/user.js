@@ -53,11 +53,31 @@ UserSchema.methods.setPassword = async function(password){
     this.hashedpassword = hash;
 }
 
+
+
+
 // 입력한 비밀번호와 암호화되서 저장된 비밀번호 비교
 UserSchema.methods.checkPassword = async function(password){
     const result = await bcrypt.compare(password, this.hashedpassword);
     return result;
 };
+
+
+
+    
+//여기만 고쳐야될거 같은데..
+UserSchema.pre('save', function (next){
+    const user = this;
+    console.log('왜 안되니? ㅎㅎ');
+    if(!user.isModified('hashedpassword')){ // 3-1
+      console.log('비밀번호 수정 안됨')   
+      return next();
+    }else {
+        user.hashedpassword = user.setPassword(user.password);
+        console.log('비밀번호바뀜')
+      return next();
+    }
+  });
 
 // 사용자쪽으로 data를 json으로 전달 회원정보수정,보기 
 // password까지 돌려주긴 좀 그러니까 data에서 password를 지워줄거임.

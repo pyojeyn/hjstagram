@@ -169,62 +169,73 @@ export const logout = async (ctx) => {
     }
 */
 
-export const changepw = async (ctx) => {
-    const { id } = ctx.params;
-    const schema = Joi.object().keys({
-        password:Joi.string(),
-    });
+export const changePassword = async (ctx) => {
+    const { username ,Oldpassword, newPassword } = ctx.request.body;
 
-    const result = schema.validate(ctx.request.body);
-    if(result.error){
-        console.log(result.error);
-        ctx.status = 400;
-        ctx.body = result.error;
-        return;
-    }
-
-// 여기서부터 이상한듯;;
-    const {email} = ctx.request.body;
     try{
-        const user = await User.findByIdAndUpdate(id, nextData,{
-            new:true,
-        }).exec();
-        
-        User.pre("save", function (next) {
-            const user = this; // User모델자체를 가르킴
-        
-            // isModified: password가 변경될때
-            if (user.isModified("password")) {
-                // 비밀번호를 암호화 시킨다.
-                bcrypt.genSalt(saltRounds, function (err, salt) {
-                    if (err) return next(err);
-        
-                    bcrypt.hash(user.password, salt, function (err, hash) {
-                        if (err) return next(err);
-                        user.password = hash;
-                        next();
-                    });
-                });
-        
-            } else {
-                next();
-            }
-        });
-
-        if(!user){
-            ctx.status = 404;
+       const user = await User.findOne({ username: username })
+    //  .then(oldUser => {
+        if(!user){ // username의 아이디 사용자가 없을 때 
+            console.log('user 있나없나확인');
+            ctx.status = 401;
             return;
         }
+        const valid = user.checkPassword(Oldpassword);
+        if(!valid) {
+            console.log('비밀번호 맞는지 확인');
+            ctx.status = 401;
+            return;
+        }
+        if (valid) {
+            // change to new password
+            user.password = newPassword;
+            console.log('비밀번호 바꿈');
+            user.save();
+            console.log('저장')
+            ctx.body = user.serialize();
 
-        ctx.body = user.serialize();
-
-        const token = user.generateToken();
-        ctx.cookies.set('hjsta_token',token,{
-            maxAge: 1000 * 60 * 60 * 24 *7,
-            httpOnly:true,
-        });
+            const token = user.generateToken();
+            console.log(token);
+            ctx.cookies.set('hjsta_token',token,{
+                maxAge: 1000 * 60 * 60 * 24 *7,
+                httpOnly:true,
+            });
+              
+          } else {
+            ctx.status(401).send("Invalid old password")
+          }
+//        }) //then 끝
     }catch(e){
-        ctx.throw(500,e);
+        ctx.throw(500,e)
     }
 }
 
+// export const changePassword = async (ctx) => {
+//     const { username, password, newPassword } = ctx.request.body
+//     // find if old password is valid
+//     User.findOne({ username: username })
+//       .then(oldUser => {
+//         if (!oldUser) {
+//             ctx.status(404)
+//             return 
+//         }
+//         const valid = oldUser.checkPassword(password);
+//         if(!valid){
+//             ctx.status = 401;
+//             return;
+//         }else{
+//             oldUser.password = newPassword
+//             const save = oldUser.save();
+//             if(save){
+//                 ctx.status(200);
+//                 ctx.body = save.serialize();
+//             }else{
+//                 ctx.status(500);
+//             }
+            
+//         }
+        
+//         })
+//       }
+      
+  
