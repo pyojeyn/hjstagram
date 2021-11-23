@@ -172,16 +172,16 @@ export const logout = async (ctx) => {
 export const changePassword = async (ctx) => {
     const { username ,Oldpassword, newPassword } = ctx.request.body;
 
-    try{     
-    //  .then(oldUser => {
-        const user = await User.findByUsername(username);
+    try{
+       const user = await User.findOne({ username: username })
         if(!user){ // username의 아이디 사용자가 없을 때 
+            console.log('user 있나없나확인');
             ctx.status = 401;
             return;
         }
-        // 사용자 잇으면 비번 체크하기
         const valid = await user.checkPassword(Oldpassword);
-        if(!valid){ // 비번 틀렷을 때
+        if(!valid) {
+            console.log('비밀번호 맞는지 확인');
             ctx.status = 401;
             return;
         }
@@ -201,13 +201,13 @@ export const changePassword = async (ctx) => {
             });
               
           } else {
-            ctx.status(401).send("Invalid old password")
+            ctx.status = 401;
           }
-//        }) //then 끝
     }catch(e){
         ctx.throw(500,e)
     }
 }
+
 
 
 
