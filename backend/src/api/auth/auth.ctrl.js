@@ -172,19 +172,18 @@ export const logout = async (ctx) => {
 export const changePassword = async (ctx) => {
     const { username ,Oldpassword, newPassword } = ctx.request.body;
 
-    try{
-       const user = await User.findOne({ username: username })
+    try{     
     //  .then(oldUser => {
+        const user = await User.findByUsername(username);
         if(!user){ // username의 아이디 사용자가 없을 때 
-            console.log('user 있나없나확인');
             ctx.status = 401;
             return;
         }
-        const valid = user.checkPassword(Oldpassword);
-        if(!valid) {
-            console.log('비밀번호 맞는지 확인');
+        // 사용자 잇으면 비번 체크하기
+        const valid = await user.checkPassword(Oldpassword);
+        if(!valid){ // 비번 틀렷을 때
             ctx.status = 401;
-            return false;
+            return;
         }
         if (valid) {
             // change to new password
@@ -210,32 +209,7 @@ export const changePassword = async (ctx) => {
     }
 }
 
-// export const changePassword = async (ctx) => {
-//     const { username, password, newPassword } = ctx.request.body
-//     // find if old password is valid
-//     User.findOne({ username: username })
-//       .then(oldUser => {
-//         if (!oldUser) {
-//             ctx.status(404)
-//             return 
-//         }
-//         const valid = oldUser.checkPassword(password);
-//         if(!valid){
-//             ctx.status = 401;
-//             return;
-//         }else{
-//             oldUser.password = newPassword
-//             const save = oldUser.save();
-//             if(save){
-//                 ctx.status(200);
-//                 ctx.body = save.serialize();
-//             }else{
-//                 ctx.status(500);
-//             }
-            
-//         }
-        
-//         })
-//       }
-      
+
+
+
   

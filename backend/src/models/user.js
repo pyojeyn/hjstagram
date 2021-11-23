@@ -59,6 +59,9 @@ UserSchema.methods.setPassword = async function(password){
 // 입력한 비밀번호와 암호화되서 저장된 비밀번호 비교
 UserSchema.methods.checkPassword = async function(password){
     const result = await bcrypt.compare(password, this.hashedpassword); // 각각 찍어보기
+    console.log("입력할때비번 : "+password);
+    console.log("기존에 암호화되서 저장되어있는 비번 : "+this.hashedpassword);
+    console.log(result);
     return result; //result 값 찍어보기 
 };
 
