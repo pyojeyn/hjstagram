@@ -102,7 +102,7 @@ export const check = async (ctx) => {
 };
 
 /*
-    PATCH  /api/auth/edit
+    PATCH  /api/auth/edit 전혀 안바뀌는거 key!
 */
 // 수정
 export const edit = async (ctx) => {
@@ -195,7 +195,7 @@ export const changePassword = async (ctx) => {
             ctx.body = user.serialize();
 
             const token = user.generateToken();
-            console.log(token);
+            
             ctx.cookies.set('hjsta_token',token,{
                 maxAge: 1000 * 60 * 60 * 24 *7,
                 httpOnly:true,

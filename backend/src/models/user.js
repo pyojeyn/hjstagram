@@ -19,13 +19,13 @@ const UserSchema = new Schema({
         type:String,
     },
     posts : [String],  //  피드   이건 잘 모르겠음
-    followers : [{
+    followers : [{ //배열 ㄴㄴ
                     user:{
         		    _id:mongoose.Types.ObjectId,
         		    username: String,
     	}
     }], 
-    following : [{
+    following : [{ // 배열 ㄴㄴ
                 user:{
                     _id:mongoose.Types.ObjectId,
                     username: String,
@@ -58,8 +58,8 @@ UserSchema.methods.setPassword = async function(password){
 
 // 입력한 비밀번호와 암호화되서 저장된 비밀번호 비교
 UserSchema.methods.checkPassword = async function(password){
-    const result = await bcrypt.compare(password, this.hashedpassword);
-    return result;
+    const result = await bcrypt.compare(password, this.hashedpassword); // 각각 찍어보기
+    return result; //result 값 찍어보기 
 };
 
 
@@ -67,14 +67,13 @@ UserSchema.methods.checkPassword = async function(password){
     
 //여기만 고쳐야될거 같은데..
 UserSchema.pre('save', async function (next){
-    console.log('왜 안되니? ㅎㅎ');
-    if(!this.isModified('hashedpassword')){ // 3-1
-      console.log('비밀번호 수정 안됨')   
-      return next();
-    }else {
+    if(this.isModified('email')){ // 회원가입할 때 암호화 반복되는거 방어
+        console.log('pre : 비밀번호 수정 안됨(회원가입 잘 됨)')   
+        return next();
+    }else if(this.isModified('hashedpassword')){
         this.hashedpassword = await bcrypt.hash(this.hashedpassword,10);
-        console.log('비밀번호바뀜')
-      return next();
+        console.log('pre : 비밀번호바뀜(ChangePassword()잘 먹힘)')
+        return next();
     }
   });
 
