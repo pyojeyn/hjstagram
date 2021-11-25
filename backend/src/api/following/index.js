@@ -17,16 +17,17 @@ const follow = new Router();
     }}]
 }
 */
+// 팔로우 하기
 follow.post('/addfollow', checkLoggedIn, followCtrl.following);
 
 //팔로잉 취소
-follow.delete('/canclefollow/:id', followCtrl.remove); // 로그인한사람id 를 보내야하는듯싶다.
+follow.delete('/canclefollow/:id', checkLoggedIn, followCtrl.remove); // 로그인한사람id 를 보내야하는듯싶다.
 
-//팔로잉 리스트
-// follow.get('/followinglist/:id',followCtrl.inglist); 
+//팔로잉 리스트     GET /api/follow/followinglist?username=kkyu
+follow.get('/followinglist',followCtrl.followinglist); 
 
-//팔로워 리스트
-// follow.get('/followerlist/:id',followCtrl.werlist); 
+//팔로워 리스트     GET /api/follow/followerlist?username=lemon
+follow.get('/followerlist',followCtrl.followerlist); 
 
 
 export default follow;
