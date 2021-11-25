@@ -3,6 +3,8 @@ import auth from './auth';
 import follow from './following';
 import posts from './posts';
 import comments from './comments';
+import likes from './likes';
+import tag from './taggedUsers';
 
 const api = new Router();
 
@@ -15,5 +17,9 @@ api.use('/follow', follow.routes());
 api.use('/posts',posts.routes());
 // 127.0.0.1:4000/api/comments
 api.use('/comments',comments.routes());
+// 127.0.0.1:4000/api/likes
+api.use('/likes', likes.routes());
+// 127.0.0.1:4000/api/tag
+api.use('/tag',tag.routes());
 
 export default api;
