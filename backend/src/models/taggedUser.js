@@ -3,7 +3,7 @@ import mongoose, { Schema } from 'mongoose';
 const TaggedUserSchema = new Schema({
     taggedUser :{
         _id: mongoose.Types.ObjectId,
-        username:String
+        taggedname:String
     },
     post:{
         _id:mongoose.Types.ObjectId,

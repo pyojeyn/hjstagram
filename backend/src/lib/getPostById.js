@@ -4,7 +4,8 @@ import mongoose from 'mongoose';
 const { ObjectId } = mongoose.Types;
 
 export const getPostById = async (ctx, next) => {
-    const { id } = ctx.params.postid; //이거 있으나 없으나 일단 똑같음;;;
+    const { id } = ctx.params;//이거 있으나 없으나 일단 똑같음;;;
+    console.log("getPostById - post의 ObjectId : "+ id);
     if(!ObjectId.isValid(id)){
         ctx.status = 400;
         console.log('Post에러니;')

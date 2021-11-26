@@ -1,4 +1,3 @@
-import follow from ".";
 import UserFollow from "../../models/userFollow";
 
 // 팔로우
@@ -8,7 +7,7 @@ export const following = async (ctx) => {
 
         const following = new UserFollow({
             userid : ctx.state.user,
-            followingid
+            followingid,
         });
 
         await following.save();

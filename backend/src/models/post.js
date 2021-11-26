@@ -18,9 +18,9 @@ const PostSchema = new Schema({
         type:Number,
         default: 0,
     },
-    img:{ // 아마도 파일경로
-        type:String,
-    //    required: true,
+    attachment:{ // 파일
+        type:mongoose.Types.ObjectId,
+        ref:'files'
     },
     comments:{
         type:Number,

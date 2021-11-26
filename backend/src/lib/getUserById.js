@@ -4,7 +4,8 @@ import User from '../models/user';
 const { ObjectId } = mongoose.Types;
 
 export const getUserById = async (ctx, next) => {
-    const { id } = ctx.params.userid;
+    const { id } = ctx.params
+    console.log("getUserById : " + id);
     if(!ObjectId.isValid(id)){
         ctx.status = 400;
         console.log('User에러니?')

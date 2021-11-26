@@ -16,7 +16,6 @@ const sanitizeOption = { //어떤 태그와 속성과 스키마만 허용할건�
 };
 
 
-
 /*
 POST /api/posts
 
@@ -116,6 +115,7 @@ const removeHtmlAndShorten = (body) =>{
 
 export const getPostById = async (ctx, next) => {
     const { id } = ctx.params;
+    console.log("post.ctrl.js - ObjectId : "+ id);
     if(!ObjectId.isValid(id)){
         ctx.status = 400;
         return;

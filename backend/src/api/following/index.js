@@ -26,7 +26,7 @@ follow.delete('/canclefollow/:id', checkLoggedIn, followCtrl.remove); // 로그�
 //팔로잉 리스트     GET /api/follow/followinglist?username=kkyu
 follow.get('/followinglist',followCtrl.followinglist); 
 
-//팔로워 리스트     GET /api/follow/followerlist?username=lemon
+//팔로워 리스트     GET http://127.0.0.1:4000/api/follow/followerlist?followingid=lemon
 follow.get('/followerlist',followCtrl.followerlist); 
 
 
