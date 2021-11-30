@@ -18,7 +18,7 @@ const PostSchema = new Schema({
         default: 0,
     },
     attachment:{ // 파일
-        type:mongoose.Types.ObjectId,
+        type:String,
         ref:'files'
     },
     comments:{
