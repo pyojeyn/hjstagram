@@ -59,7 +59,7 @@ export const commentslist = async (ctx) => {
 
     try{
         const comments = await Comment.find(query)
-        .sort({_id:1})
+        .sort({_id:-1})
         .limit(10)
         .lean()
         .exec();

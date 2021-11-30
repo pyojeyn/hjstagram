@@ -5,6 +5,7 @@ import posts from './posts';
 import comments from './comments';
 import likes from './likes';
 import tag from './taggedUsers';
+import files from './files';
 
 const api = new Router();
 
@@ -21,5 +22,6 @@ api.use('/comments',comments.routes());
 api.use('/likes', likes.routes());
 // 127.0.0.1:4000/api/tag
 api.use('/tag',tag.routes());
-
+// 127.0.0.1:4000/api/files
+api.use('/files',files.routes());
 export default api;

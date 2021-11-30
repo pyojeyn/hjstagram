@@ -2,6 +2,7 @@ import Post from "../../models/post";
 import mongoose from 'mongoose';
 import Joi from "joi";
 import sanitizeHtml from 'sanitize-html';
+import File from "../../models/files";
 
 const { ObjectId } = mongoose.Types;
 
@@ -20,11 +21,14 @@ const sanitizeOption = { //어떤 태그와 속성과 스키마만 허용할건�
 POST /api/posts
 
 {
-    contents: '내용',
-    tags: ['태그1','태그2']
+    "contents": "후니사랑해",
+    "tags": ["후니와","티슈"]
 }
 */
 
+
+
+// 여기서 뭔가를 해야함;
 export const write = async (ctx) => {
     const schema = Joi.object().keys({
         tags:Joi.array().items(Joi.string()),
@@ -37,7 +41,7 @@ export const write = async (ctx) => {
         ctx.body = result.error;
         return;
     }
-
+ 
     const { contents, tags } = ctx.request.body;
     const post = new Post({
         tags,
