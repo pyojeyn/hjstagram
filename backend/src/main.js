@@ -4,13 +4,12 @@ import Router from 'koa-router';
 import bodyParser from 'koa-bodyparser'
 import api from './api'
 import jwtMiddleware from './lib/jwtMiddleware';
+import serve from 'koa-static';
 import path from 'path';
-import static from 'koa-static';
+
 
 const port = 4000;
 const app = new Koa();
-
-
 const router = new Router();
 
 //미들웨어 등록!
@@ -18,7 +17,11 @@ router.use('/api', api.routes());
 app.use(bodyParser());
 app.use(jwtMiddleware);
 app.use(router.routes()).use(router.allowedMethods());
-app.use('/uploads', static(path.join(__dirname, 'uploads')));
+
+
+app.use(serve(path.join(__dirname, '/uploads')));
+
+// app.use('/uploads', serve(path.join(__dirname, 'uploads')));
 
 //MongoDB 연결
 mongoose

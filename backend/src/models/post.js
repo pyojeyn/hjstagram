@@ -12,7 +12,6 @@ const PostSchema = new Schema({
     },
     contents : { // 내용
         type: String,
-        required: true,
     },
     like:{ // 좋아요 수 
         type:Number,

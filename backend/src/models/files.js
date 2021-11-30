@@ -7,16 +7,19 @@ const FileSchema = new Schema({
     postid : { type:mongoose.Types.ObjectId, ref:'posts'},
 });
 
+
 const File = mongoose.model('File',FileSchema);
 
 File.createNewInstance = async function(file, postid){
     return await File.create({
-        originalFileName: file.originalFileName,
+        originalFileName: file.originalName,
         serverFileName:file.filename,
         size:file.size,
         postid:postid,
     });
 };
+
+
 
 /*
 createNewInstance함수는 file, uploadedBy, postId를 받아 

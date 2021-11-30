@@ -28,7 +28,7 @@ POST /api/posts
 export const write = async (ctx) => {
     const schema = Joi.object().keys({
         tags:Joi.array().items(Joi.string()),
-        contents:Joi.string().required(),
+        contents:Joi.string(),
     });
 
     const result = schema.validate(ctx.request.body);

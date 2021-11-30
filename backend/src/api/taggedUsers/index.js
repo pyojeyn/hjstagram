@@ -14,3 +14,11 @@ tag.get('/',taggedUsersCtrl.taggedpostlist);
 
 
 export default tag;
+
+// 아 이거 맞나...
+// {
+//     "taggedUser" : {
+//         "_id" :"619b192e2d951319d3d1f385",
+//         "taggedname":"grape"
+//     }
+// }
