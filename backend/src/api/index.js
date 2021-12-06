@@ -6,6 +6,7 @@ import comments from './comments';
 import likes from './likes';
 import tag from './taggedUsers';
 import files from './files';
+import savePeeds from './savePeeds';
 
 const api = new Router();
 
@@ -24,4 +25,6 @@ api.use('/likes', likes.routes());
 api.use('/tag',tag.routes());
 // 127.0.0.1:4000/api/files
 api.use('/files',files.routes());
+// 127.0.0.1:4000/api/savePeeds
+api.use('/savePeeds',savePeeds.routes());
 export default api;

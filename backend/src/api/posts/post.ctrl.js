@@ -28,7 +28,7 @@ POST /api/posts
 
 
 
-// 여기서 뭔가를 해야함;
+
 export const write = async (ctx) => {
     const schema = Joi.object().keys({
         tags:Joi.array().items(Joi.string()),
