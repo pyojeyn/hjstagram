@@ -7,6 +7,7 @@ import likes from './likes';
 import tag from './taggedUsers';
 import files from './files';
 import savePeeds from './savePeeds';
+import closefriends from './closeFriends';
 
 const api = new Router();
 
@@ -27,4 +28,6 @@ api.use('/tag',tag.routes());
 api.use('/files',files.routes());
 // 127.0.0.1:4000/api/savePeeds
 api.use('/savePeeds',savePeeds.routes());
+// 127.0.0.1:4000/api/closeFriends
+api.use('/closeFriends', closefriends.routes());
 export default api;

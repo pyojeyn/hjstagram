@@ -17,8 +17,8 @@ const follow = new Router();
     }}]
 }
 */
-// 팔로우 하기
-follow.post('/addfollow', checkLoggedIn, followCtrl.following);
+// 팔로우 하기 id : 팔로우 할 사람의 id
+follow.post('/addfollow/:id', checkLoggedIn, followCtrl.following);
 
 //팔로잉 취소
 follow.delete('/canclefollow/:id', checkLoggedIn, followCtrl.remove); // 로그인한사람id 를 보내야하는듯싶다.

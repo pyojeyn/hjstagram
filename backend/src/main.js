@@ -6,9 +6,7 @@ import api from './api'
 import jwtMiddleware from './lib/jwtMiddleware';
 import serve from 'koa-static';
 import path from 'path';
-import http from 'http';
 import socketIO from 'socket.io';
-import fs from 'fs';
 import htmlRender from 'koa-html-render';
 
 

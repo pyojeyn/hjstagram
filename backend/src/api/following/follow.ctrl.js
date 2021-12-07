@@ -1,13 +1,32 @@
 import UserFollow from "../../models/userFollow";
+import User from '../../models/user';
+import mongoose from 'mongoose';
+
+const { ObjectId } = mongoose.Types;
 
 // 팔로우
 export const following = async (ctx) => {
     try{
-        const {followingid} = ctx.request.body;
+        const {id} = ctx.params;
+
+        if(!ObjectId.isValid(id)){
+            ctx.status = 400;
+            console.log('User에러니?')
+            return;
+        }
+
+        const user = await User.findById(id);
+        if(!user){
+            ctx.status = 404;
+            return;
+        }
 
         const following = new UserFollow({
             userid : ctx.state.user,
-            followingid,
+            followingid:{
+                _id:user._id,
+                followingid:user.username, 
+            }
         });
 
         await following.save();
