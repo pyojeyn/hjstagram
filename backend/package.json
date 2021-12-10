@@ -4,20 +4,31 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node -r esm src"
+    "start": "node -r esm src",
+    "dev": "concurrently \"npm start\" \"cd ../frontend && npm run start\""
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@koa/multer": "^3.0.0",
     "bcrypt": "^5.0.1",
+    "concurrently": "^6.4.0",
     "esm": "^3.2.25",
     "joi": "^17.4.2",
     "jsonwebtoken": "^8.5.1",
-    "koa": "^2.13.3",
+    "koa": "^2.13.4",
     "koa-bodyparser": "^4.3.0",
+    "koa-ejs": "^4.3.0",
+    "koa-html-render": "^1.0.3",
+    "koa-multer": "^1.0.2",
     "koa-router": "^10.1.1",
+    "koa-static": "^5.0.0",
+    "koa-views": "^8.0.0",
+    "koa-views-render": "0.0.1",
     "mongoose": "^6.0.9",
     "nodemailer": "^6.7.1",
-    "sanitize-html": "^2.5.1"
+    "sanitize-html": "^2.5.1",
+    "serve-static": "^1.14.1",
+    "socket.io": "^4.4.0"
   }
 }
