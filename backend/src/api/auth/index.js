@@ -16,15 +16,17 @@ auth.get('/check',authCtrl.check);
 // 127.0.0.1:4000/api/auth/edit/:id     수정
 auth.patch('/edit/:id',checkLoggedIn,authCtrl.edit);
 
-// 127.0.0.1:4000/api/auth/edit/:id     삭제
+// 127.0.0.1:4000/api/auth/delete/:id     삭제
 auth.delete('/delete/:id', checkLoggedIn, authCtrl.remove);
 
-// 127.0.0.1:4000/api/auth/logout   로그인
+// 127.0.0.1:4000/api/auth/logout   로그아웃
 auth.post('/logout',authCtrl.logout);
 
-// 127.0.0.1:4000/api/auth/sendemail  이메일 인증코드 발송
-auth.post('/sendemail',emailCtrl.sendEmailAuthenticationCode);
+// 127.0.0.1:4000/api/auth/sendemail  비밀번호 재설정 이메일 발송
+auth.post('/sendemail',emailCtrl.sendPasswordResetEmail);
+// 127.0.0.1:4000/api/auth/receive_new_password/:userId/:token
+auth.post('/receive_new_password/:userId/:token', emailCtrl.receiveNewPassword);
 
 // 127.0.0.1:4000/api/auth/changepw  비밀번호 변경
-auth.patch('/changePassword',checkLoggedIn, authCtrl.changePassword);
+auth.patch('/changePassword/:id',checkLoggedIn, authCtrl.changePassword);
 export default auth;

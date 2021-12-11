@@ -170,10 +170,11 @@ export const logout = async (ctx) => {
 */
 
 export const changePassword = async (ctx) => {
-    const { username ,Oldpassword, newPassword } = ctx.request.body;
+    const { Oldpassword, newPassword } = ctx.request.body;
+    const { id } = ctx.params;
 
     try{
-       const user = await User.findOne({ username: username })
+       const user = await User.findById({ _id: id })
         if(!user){ // username의 아이디 사용자가 없을 때 
             console.log('user 있나없나확인');
             ctx.status = 401;

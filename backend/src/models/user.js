@@ -83,6 +83,7 @@ UserSchema.methods.generateToken = function(){
             email:this.email,
             name:this.name,
             username:this.username,
+            introment:this.introment,
         },
         '!@#$%^&*()',
         { expiresIn: '7d' },
@@ -95,7 +96,7 @@ UserSchema.statics.findByUsername = function(username){
     return this.findOne({username}); //지정되어잇는 함수 findOne
 };
 
-UserSchema.statics.findByEmail = async function(email){
+UserSchema.statics.findByEmail = function(email){
     return this.findOne({email});
 }
 
