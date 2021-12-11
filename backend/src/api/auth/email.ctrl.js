@@ -49,20 +49,28 @@ export const sendPasswordResetEmail = async (ctx) => {
 
 // 비밀번호 변경하는 api
 export const receiveNewPassword = async (ctx) => {
-    const { userId, token } =ctx.params;
+    const { token, userId } =ctx.params;
     const { password } = ctx.request.body;
+
+    console.log('userId : ' + userId);
+    console.log('token : ' + token);
+    console.log('password : ' + password);
 
     const user = await User.findById({_id:userId});
 
     if(user){
         const secret = '!@#$%^&*()';
         const payload = jwt.decode(token,secret);
+        console.log("payload");
+        console.log(payload);
+        console.log("user");
+        console.log(user);
 
-        if(payload.userId === user.id){
+        if(payload._id === user.id){
             user.hashedpassword = password;
             user.save();
         }else{
-            ctx.throw(500,e);
+            ctx.body = "안됨";
         }
     }else{
         ctx.status = 401;

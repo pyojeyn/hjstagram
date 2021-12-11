@@ -101,6 +101,19 @@ export const check = async (ctx) => {
     ctx.body = user;
 };
 
+// export const findbyEmail = async (ctx) => {
+//     const {email} = ctx.request.body;
+//     const user = await User.findByEmail(email);
+//     if(!user){ // username의 아이디 사용자가 없을 때 
+//         ctx.status = 401;
+//         return;
+//     }
+//     ctx.body = user;
+// }
+
+
+
+
 /*
     PATCH  /api/auth/edit 전혀 안바뀌는거 key!
 */
