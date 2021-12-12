@@ -222,8 +222,14 @@ export const changePassword = async (ctx) => {
     }
 }
 
-
-
+// 아이디 중복 체크
+export const idCheck = async (ctx) => {
+    const {username} = ctx.request.body;
+    const exists = await User.findByUsername(username);
+        if(exists){
+            ctx.body = exists;
+        }
+}
 
 
   

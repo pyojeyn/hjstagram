@@ -29,4 +29,7 @@ auth.post('/receive_new_password/:userId/:token', emailCtrl.receiveNewPassword);
 
 // 127.0.0.1:4000/api/auth/changepw  비밀번호 변경
 auth.patch('/changePassword/:id',checkLoggedIn, authCtrl.changePassword);
+
+// 127.0.0.1:4000/api/auth/idCheck  중복아이디 확인
+auth.post('/idCheck', authCtrl.idCheck);
 export default auth;
