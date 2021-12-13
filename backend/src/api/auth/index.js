@@ -40,6 +40,6 @@ auth.post('/idAndPassWordCheck', authCtrl.idAndPassWordCheck);
 // 127.0.0.1:4000/api/auth/expwCheck/:id  이전 비밀번호 체크 
 auth.post('/expwCheck/:id', authCtrl.expwCheck);
 
-// 127.0.0.1:4000/api/auth/emailCheck  이메일 중복확인
+// 127.0.0.1:4000/api/auth/emailCheck  이메일 중복확인ㅇㅇ
 auth.post('/emailCheck', authCtrl.emailCheck);
 export default auth;
