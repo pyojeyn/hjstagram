@@ -69,9 +69,8 @@ export const receiveNewPassword = async (ctx) => {
         if(payload._id === user.id){
             user.hashedpassword = password;
             user.save();
-        }else{
-            ctx.body = "안됨";
         }
+
     }else{
         ctx.status = 401;
     }

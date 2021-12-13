@@ -124,7 +124,6 @@ export const edit = async (ctx) => {
         name:Joi.string(),
         username: Joi.string(),
         introment: Joi.string(),
-        email: Joi.string(),
     });
 
     const result = schema.validate(ctx.request.body);
@@ -222,14 +221,60 @@ export const changePassword = async (ctx) => {
     }
 }
 
-// 아이디 중복 체크
+// 아이디 비번 체크
+export const idAndPassWordCheck = async (ctx) => {
+    const {username, password} = ctx.request.body;
+    console.log(username);
+    console.log(password);
+    const exists = await User.findByUsername(username);
+
+        if(exists){
+            ctx.body = exists;  
+            const valid = await exists.checkPassword(password);
+
+            if(!valid){ // 비번 틀렷을 때
+                ctx.body = { pw : "틀림"}
+            }  
+        }
+
+        if(!exists){
+            ctx.body = { person : "없다고"}
+        }
+}
+
+// 회원가입, 프로필 편집 아이디 중복확인
 export const idCheck = async (ctx) => {
     const {username} = ctx.request.body;
     const exists = await User.findByUsername(username);
         if(exists){
             ctx.body = exists;
         }
+        if(!exists){
+            ctx.body = { person : "없다고"}
+        }
 }
 
+// 이메일 중복확인
+export const emailCheck = async (ctx) => {
+    const {email} = ctx.request.body;
+    const exists = await User.findByEmail(email);
+        if(exists){
+            ctx.body = exists;
+        }
+}
 
-  
+// 비밀번호 변경 이전 비밀번호 확인
+export const expwCheck = async (ctx) => {
+    const {id} = ctx.params;
+    const {password} = ctx.request.body;
+
+    const user = await User.findById(id);
+    const valid = await user.checkPassword(password);
+    if(!valid){ // 비번 틀렷을 때
+        ctx.body = { expw : "틀림"}
+    }
+    if(valid){
+        ctx.body = {expw : "맞음"}
+    }
+}
+
