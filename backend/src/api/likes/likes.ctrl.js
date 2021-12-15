@@ -7,6 +7,7 @@ export const addlike = async (ctx) => {
             _id:ctx.state.post._id,
             contents:ctx.state.post.contents,
         },
+        userid: ctx.state.user._id,
     });
     console.log(like);
     
@@ -20,9 +21,15 @@ export const addlike = async (ctx) => {
 
 // 좋아요 취소 
 export const cancelLike = async (ctx) => {
-    const { id } = ctx.params;
+    const { id } = ctx.params; //userid 값? postid 값... 둘중에 고민.. 일단 userid로 넘겨주긴함;
+    console.log("userid : "+ id);
     try{
-        await Like.findByIdAndRemove(id).exec();
+        const like = await Like.findByUserid(id);
+        console.log(like);
+
+        const removeid = like._id;
+
+        await Like.findByIdAndRemove(removeid).exec();
         ctx.status = 204;
     }catch(e){
         ctx.throw(500,e);

@@ -105,6 +105,33 @@ export const remove = async (ctx) => {
 }
 
 
+// 좋아요 + 1
+export const addLike = async (ctx) => {
+    const { id } = ctx.params;
+    try{
+        const post = await Post.findById(id);
+        post.like += 1;
+        console.log(post.like);
+        post.save();
+        ctx.body = post;
+    }catch(e){
+        ctx.throw(e, 500);
+    }
+}
+
+//좋아요 -1
+export const cancleLike = async (ctx) => {
+    const { id } = ctx.params;
+    try{
+        const post = await Post.findById(id);
+        post.like -= 1;
+        console.log(post.like);
+        post.save();
+        ctx.body = post;
+    }catch(e){
+        ctx.throw(e, 500);
+    }
+} 
 
 
 
@@ -147,3 +174,4 @@ export const checkOwnPost = (ctx,next) => {
     }
     return next();
 };
+

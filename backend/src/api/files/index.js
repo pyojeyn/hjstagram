@@ -1,6 +1,5 @@
 import Router from "koa-router";
 import * as filesCtrl from './files.ctrl';
-import File from "../../models/files";
 import { getPostById } from "../posts/post.ctrl";
 import multer from '@koa/multer';
 import path from 'path';
@@ -27,6 +26,6 @@ const upload = multer({
 });
 
 files.post('/:id',getPostById,upload.array('attachment',20),filesCtrl.saveFile);
-files.get('/:id',getPostById, filesCtrl.filelist);
+files.get('/', filesCtrl.filelist);
 files.delete('/:id',filesCtrl.removeFile);
 export default files;

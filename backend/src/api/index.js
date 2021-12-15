@@ -8,6 +8,7 @@ import tag from './taggedUsers';
 import files from './files';
 import savePeeds from './savePeeds';
 import closefriends from './closeFriends';
+import profilePic from './profilePics';
 
 const api = new Router();
 
@@ -30,4 +31,6 @@ api.use('/files',files.routes());
 api.use('/savePeeds',savePeeds.routes());
 // 127.0.0.1:4000/api/closeFriends
 api.use('/closeFriends', closefriends.routes());
+// 127.0.0.1:4000/api/profilePic
+api.use('/profilePic', profilePic.routes());
 export default api;
