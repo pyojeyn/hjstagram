@@ -6,6 +6,7 @@ const FileSchema = new Schema({
     size:{type:String}, // 업로드된 파일 크기
     path:{type:String},
     postid : { type:mongoose.Types.ObjectId, ref:'posts'},
+    postcontents: {type:String, ref:'posts'},
 });
 
 const File = mongoose.model('File',FileSchema);

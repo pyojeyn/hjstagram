@@ -18,6 +18,7 @@ export const saveFile = async (ctx) => {
                     size: files[i].size,
                     path: files[i].path,
                     postid:ctx.state.post._id,
+                    postcontents:ctx.state.post.contents,
                 })
 
                 console.log(files); //file속성정보

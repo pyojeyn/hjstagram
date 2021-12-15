@@ -1,7 +1,6 @@
 import mongoose,{ Schema } from 'mongoose';
 
 const PostSchema = new Schema({
-    tags:[String], // 태그
     publishedDate:{ // 게시일
         type:Date,
         default:Date.now,
@@ -16,10 +15,6 @@ const PostSchema = new Schema({
     like:{ // 좋아요 수 
         type:Number,
         default: 0,
-    },
-    attachment:{ // 파일
-        type:String,
-        ref:'files'
     },
     comments:{
         type:Number,
