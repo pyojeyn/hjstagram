@@ -58,3 +58,4 @@ export const likePeopleList = async (ctx) => {
         ctx.throw(500,e);
     }
 }
+

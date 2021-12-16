@@ -28,7 +28,7 @@ const UserSchema = new Schema({
     savePeed: [String], // 저장됨   이것도 잘 모르겟음
     introment: {
         type:String,
-    }
+    },
 });
 
 // followers, following, closefriend 는 여러명이기 때문에 배열 처리 []
