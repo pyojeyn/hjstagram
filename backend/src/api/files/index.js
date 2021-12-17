@@ -8,7 +8,7 @@ const files = new Router();
 
 const storage = multer.diskStorage({
     destination:(ctx,file,callback) => {
-        callback(null,'uploads');
+        callback(null,'../frontend/public/files');
     },
     filename:(ctx,file,callback) => {
         const extension = path.extname(file.originalname);

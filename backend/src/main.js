@@ -22,6 +22,7 @@ app.use(bodyParser());
 app.use(jwtMiddleware);
 app.use(router.routes()).use(router.allowedMethods());
 app.use(serve(path.join(__dirname, 'uploads')));
+app.use(serve(path.join(__dirname, '../../frontend/public/files')));
 app.use(serve(path.join(__dirname, 'profile')));
 app.use(serve(path.join(__dirname, '../../frontend/build')));
 
