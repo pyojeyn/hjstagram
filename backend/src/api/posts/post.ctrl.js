@@ -175,3 +175,20 @@ export const checkOwnPost = (ctx,next) => {
     return next();
 };
 
+/*
+  PATCH /api/posts/:id
+  {
+    fileurl: ['태그1', '태그2']        
+  }
+*/
+export const path = async (ctx) => {
+    const { id } = ctx.params;
+    const {fileurl} = ctx.request.body;
+    console.log(fileurl);
+
+    const post = await Post.findById(id);
+    post.fileurls = fileurl;
+    await post.save();
+    console.log(post);
+    ctx.body = post;
+}

@@ -26,6 +26,8 @@ post.patch('/addlike', postCtrl.addLike);
 // 127.0.0.1:4000/api/posts/61b80dac1e24c192d5503fb6/canclelike
 post.patch('/canclelike', postCtrl.cancleLike);
 
+post.patch('/', postCtrl.path);
+
 posts.use('/:id',postCtrl.getPostById, post.routes());
 
 
