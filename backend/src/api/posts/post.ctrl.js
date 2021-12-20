@@ -192,3 +192,36 @@ export const path = async (ctx) => {
     console.log(post);
     ctx.body = post;
 }
+
+/*
+    PATCH /api/posts/:id/giveComment
+*/
+export const giveComment = async (ctx) => {
+    const { id } = ctx.params;
+    const { content } = ctx.request.body;
+
+    const post = await Post.findById(id);
+    const commentarr = post.commentArr;
+    console.log(post.commentArr);
+    post.commentArr = [content, ...commentarr];
+    await post.save();
+    console.log(post);
+    ctx.body = post;
+}
+
+/*
+    PATCH /api/posts/:id/deleteComment
+*/
+export const deleteComment = async (ctx) => {
+    const { id } = ctx.params;
+    const { content } = ctx.request.body;
+    const post = await Post.findById(id);
+    const commentarr = post.commentArr;
+    let index = commentarr.indexOf(content);
+    if (index > -1) {
+        commentarr.splice(index, 1);
+    }
+    await post.save();
+    console.log(post);
+    ctx.body = post;
+}
