@@ -22,6 +22,7 @@ const PostSchema = new Schema({
     },
     fileurls:[String],
     commentArr:[String],
+    usernameArr:[String],
 });
 
 const Post = mongoose.model('Post',PostSchema);

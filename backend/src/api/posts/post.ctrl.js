@@ -202,8 +202,10 @@ export const giveComment = async (ctx) => {
 
     const post = await Post.findById(id);
     const commentarr = post.commentArr;
+    const usernamearr = post.usernameArr;
     console.log(post.commentArr);
     post.commentArr = [content, ...commentarr];
+    post.usernameArr = [ctx.state.user.username, ...usernamearr];
     await post.save();
     console.log(post);
     ctx.body = post;
