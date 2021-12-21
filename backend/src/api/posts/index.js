@@ -19,12 +19,20 @@ post.get('/', postCtrl.read);
 post.delete('/',checkLoggedIn, postCtrl.checkOwnPost, postCtrl.remove);
 
 // 좋아요 +1 post id 넘겨줌
-// 127.0.0.1:4000/api/posts/61b80dac1e24c192d5503fb6/addlike
+// 127.0.0.1:4000/api/posts/${}/addlike
 post.patch('/addlike', postCtrl.addLike);
 
 // 좋아요 -1 post id 넘겨줌
 // 127.0.0.1:4000/api/posts/61b80dac1e24c192d5503fb6/canclelike
 post.patch('/canclelike', postCtrl.cancleLike);
+
+// 좋아요 눌렸을때 좋아요 누른 사람 배열에 추가
+//api/posts/${}/likeby
+post.patch('/likeby', postCtrl.likeby);
+
+// 좋아요 취소했을 때 좋아요 누른 사람 배열에서 삭제
+// api/posts/${}/cancleLikeby
+post.patch('/cancleLikeby', postCtrl.cancleLikeby);
 
 // 파일 첨부할때 url 넘겨줌
 post.patch('/', postCtrl.path);

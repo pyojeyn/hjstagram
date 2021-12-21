@@ -111,7 +111,7 @@ export const addLike = async (ctx) => {
     try{
         const post = await Post.findById(id);
         post.like += 1;
-        console.log(post.like);
+        console.log("좋아요 갯수 : " + post.like);
         post.save();
         ctx.body = post;
     }catch(e){
@@ -125,7 +125,7 @@ export const cancleLike = async (ctx) => {
     try{
         const post = await Post.findById(id);
         post.like -= 1;
-        console.log(post.like);
+        console.log("좋아요 갯수 : " + post.like);
         post.save();
         ctx.body = post;
     }catch(e){
@@ -206,6 +206,48 @@ export const giveComment = async (ctx) => {
     console.log(post.commentArr);
     post.commentArr = [content, ...commentarr];
     post.usernameArr = [ctx.state.user.username, ...usernamearr];
+    await post.save();
+    console.log(post);
+    ctx.body = post;
+}
+
+/*
+    PATCH /api/posts/:id/likeby
+*/
+export const likeby = async (ctx) => {
+    const { id } = ctx.params;
+
+    const post = await Post.findById(id);
+
+    const likebyarr = post.likeby;
+
+    console.log(post.likeby);
+
+    for(let i=0; i<likebyarr.length; i++){
+        if(likebyarr[i] === ctx.state.user.username) {
+            console.log("이미 좋아요 했음");
+            return false;
+        }
+    }
+
+    post.likeby = [...likebyarr, ctx.state.user.username];
+
+    console.log("로그인한사람"+ctx.state.user.username)
+
+    await post.save();
+    console.log(post);
+    ctx.body = post;
+}
+
+export const cancleLikeby = async (ctx) => {
+    const { id } = ctx.params;
+    const post = await Post.findById(id);
+    const likebyarr = post.likeby;
+    let index = likebyarr.indexOf(ctx.state.user.username);
+    if(index > -1){
+        likebyarr.splice(index,1);
+        console.log("좋아요 리스트에서 삭제됨!")
+    } 
     await post.save();
     console.log(post);
     ctx.body = post;
