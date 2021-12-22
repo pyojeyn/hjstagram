@@ -124,7 +124,10 @@ export const cancleLike = async (ctx) => {
     const { id } = ctx.params;
     try{
         const post = await Post.findById(id);
-        post.like -= 1;
+        // 여기서 좋아요 개수가 0 이면 실행되게 하면 안됨
+        if(post.like > 0){
+            post.like -= 1;
+        }
         console.log("좋아요 갯수 : " + post.like);
         post.save();
         ctx.body = post;
