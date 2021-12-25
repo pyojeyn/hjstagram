@@ -29,6 +29,16 @@ const UserSchema = new Schema({
     introment: {
         type:String,
     },
+    followingNum:{ //팔로잉 수 
+        type:Number,
+        default: 0,
+    },
+    followerNum:{ //팔로워 수 
+        type:Number,
+        default:0,
+    },
+    followingPeople :[String], // 팔로잉 리스트
+    followerPeople : [String], // 팔로워 리스트 
 });
 
 // followers, following, closefriend 는 여러명이기 때문에 배열 처리 []
@@ -78,12 +88,16 @@ UserSchema.methods.serialize = function(){
 
 UserSchema.methods.generateToken = function(){
     const token = jwt.sign(
-        {// 토큰 서명 할때 스키마에 있는 필드 다 써줘야 하는건가..?
+        {// 토큰 서명 할때 스키마에 있는 필드 다 써줘야 하는건가..? 여기에 다 써줘야 response로 써먹을 수 있음!
             _id: this.id,
             email:this.email,
             name:this.name,
             username:this.username,
             introment:this.introment,
+            followingPeople: this.followingPeople,
+            followerPeople: this.followerPeople,
+            followerNum:this.followerNum,
+            followingNum:this.followingNum
         },
         '!@#$%^&*()',
         { expiresIn: '7d' },

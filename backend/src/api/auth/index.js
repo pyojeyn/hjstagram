@@ -42,4 +42,10 @@ auth.post('/expwCheck/:id', authCtrl.expwCheck);
 
 // 127.0.0.1:4000/api/auth/emailCheck  이메일 중복확인ㅇㅇ
 auth.post('/emailCheck', authCtrl.emailCheck);
+
+// 127.0.0.1:4000/api/auth/following/:ingid/:werid 팔로잉
+auth.patch('/following/:ingid/:werid', authCtrl.following);
+// 127.0.0.1:4000/api/auth/unfollowing/:ingid/:werid 언팔로잉
+auth.patch('/unfollowing/:ingid/:werid', authCtrl.unfollowing);
+
 export default auth;

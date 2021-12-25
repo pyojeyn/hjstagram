@@ -278,3 +278,78 @@ export const expwCheck = async (ctx) => {
     }
 }
 
+// 팔로잉 했을때 1.팔로잉한 사람 팔로잉 수 +1, 팔로잉배열에 추가
+/*
+    PATCH 
+    {
+        "whofollowing" : "",
+        "whofollower" : "",
+    }
+*/ 
+export const following = async (ctx) => {
+    const { ingid, werid } = ctx.params; 
+    const {whofollowing, whofollower} = ctx.request.body; 
+    // 팔로잉 객체 수정
+    const user1 = await User.findById(ingid);
+    user1.followingNum += 1;
+    const followingarr = user1.followingPeople;
+    for(let i=0; i<followingarr.length; i++){
+        if(followingarr[i] === whofollowing){
+            console.log("followingarr : 이미 ※팔로우※ 했음!!");
+            return false;
+        }
+    }
+    user1.followingPeople = [whofollowing, ...followingarr];
+    await user1.save();
+    console.log("팔로잉 한명 추가!");
+    // 팔로워 객체 수정
+    const user2 = await User.findById(werid);
+    user2.followerNum += 1;
+    const followerarr = user2.followerPeople;
+    for(let i=0; i<followerarr.length; i++){
+        if(followerarr[i] === ctx.state.user.username){
+            console.log("followerarr: 이미 ※팔로우※ 했음!!");
+            return false;
+        }
+    }
+    user2.followerPeople = [whofollower, ...followerarr];
+    await user2.save();
+    console.log("팔로워 한명 추가됨!");
+    ctx.body = user1, user2;
+}
+/*
+PATCH 
+    {
+        "whounfollowing" : "",
+        "whofollower" : "",
+    }
+*/ 
+export const unfollowing = async (ctx) => {
+    const { ingid, werid } = ctx.params;
+    const {whounfollowing, whounfollower} = ctx.request.body;
+    // 팔로잉 객체 수정
+    const user1 = await User.findById(ingid);
+    if(user1.followingNum > 0){
+        user1.followingNum -= 1;
+    }
+    const followingarr = user1.followingPeople;
+    let index = followingarr.indexOf(whounfollowing);
+    if(index > -1){
+        followingarr.splice(index,1);
+        console.log("팔로잉취소!");
+    }
+    await user1.save();
+    // 언팔당한 사람 수정
+    const user2 = await User.findById(werid);
+    if(user2.followerNum > 0){
+        user2.followerNum -=1;
+    }
+    const followerarr = user2.followerPeople;
+    let index2 = followerarr.indexOf(whounfollower);
+    if(index2 > -1){
+        followerarr.splice(index, 1);
+        console.log("팔로워한명사라짐!");
+    }
+    await user2.save();
+    ctx.body = user1, user2;
+}
