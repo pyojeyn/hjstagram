@@ -422,4 +422,26 @@ export const removePost = async (ctx) => {
     }
 }
 
+export const profileurl = async (ctx) => {
+    
+    const {profilepicurl} = ctx.request.body;
+
+    try{
+        const user = await User.findById(ctx.state.user._id);
+        user.profileurl = profilepicurl;
+    
+        await user.save();
+        const token = user.generateToken();
+            //쿠키 생성
+        ctx.cookies.set('hjsta_token',token,{
+            maxAge: 1000 * 60 * 60 * 24 * 7,
+            httpOnly:true, // 자바스크립트 해킹 방지!
+        });
+        ctx.body = user;
+    }catch(e){
+        ctx.throw(e,500);
+    }
+    
+}
+
 // ※ user 관련해서 뭐 수정하면 다시 토큰 직렬화 해줘서 쿠키에 심어줘야함!! 그래야 다시 로그아웃하고 로그인 안해도 바뀐 정보대로 반영됨!!

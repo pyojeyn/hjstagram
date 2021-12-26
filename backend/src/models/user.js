@@ -36,6 +36,10 @@ const UserSchema = new Schema({
     },
     followingPeople :[String], // 팔로잉 리스트
     followerPeople : [String], // 팔로워 리스트 
+    profileurl: {
+        type:String,
+        default:"img/default_profile.png"
+    }
 });
 
 
@@ -93,6 +97,7 @@ UserSchema.methods.generateToken = function(){
             followerNum:this.followerNum,
             followingNum:this.followingNum,
             postsNum:this.postsNum,
+            profileurl:this.profileurl,
         },
         '!@#$%^&*()',
         { expiresIn: '7d' },

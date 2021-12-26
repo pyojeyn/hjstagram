@@ -54,4 +54,7 @@ auth.patch('/addPost', authCtrl.addPost);
 //127.0.0.1:4000/api/auth/removePost 게시물 개수 -1
 auth.patch('/removePost', authCtrl.removePost);
 
+// 127.0.0.1:4000/api/auth/profileChange 프로필 사진 변경
+auth.patch('/profileChange', authCtrl.profileurl);
+
 export default auth;
