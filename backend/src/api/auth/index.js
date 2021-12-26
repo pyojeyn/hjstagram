@@ -48,4 +48,10 @@ auth.patch('/following/:ingid/:werid', authCtrl.following);
 // 127.0.0.1:4000/api/auth/unfollowing/:ingid/:werid 언팔로잉
 auth.patch('/unfollowing/:ingid/:werid', authCtrl.unfollowing);
 
+// 127.0.0.1:4000/api/auth/addPost 게시물 개수 +1
+auth.patch('/addPost', authCtrl.addPost);
+
+//127.0.0.1:4000/api/auth/removePost 게시물 개수 -1
+auth.patch('/removePost', authCtrl.removePost);
+
 export default auth;

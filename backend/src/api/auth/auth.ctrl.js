@@ -143,6 +143,12 @@ export const edit = async (ctx) => {
             ctx.status = 404;
             return;
         }
+        const token = user.generateToken();
+        //쿠키 생성
+        ctx.cookies.set('hjsta_token',token,{
+            maxAge: 1000 * 60 * 60 * 24 * 7,
+            httpOnly:true, // 자바스크립트 해킹 방지!
+        });
         ctx.body = user;
     }catch(e){
         ctx.throw(500,e);
@@ -289,33 +295,48 @@ export const expwCheck = async (ctx) => {
 export const following = async (ctx) => {
     const { ingid, werid } = ctx.params; 
     const {whofollowing, whofollower} = ctx.request.body; 
-    // 팔로잉 객체 수정
-    const user1 = await User.findById(ingid);
-    user1.followingNum += 1;
-    const followingarr = user1.followingPeople;
-    for(let i=0; i<followingarr.length; i++){
-        if(followingarr[i] === whofollowing){
-            console.log("followingarr : 이미 ※팔로우※ 했음!!");
-            return false;
-        }
+
+    if(whofollowing === whofollower){
+        console.log("본인 팔로우 하면 안됨!");
+        return false;
     }
-    user1.followingPeople = [whofollowing, ...followingarr];
-    await user1.save();
-    console.log("팔로잉 한명 추가!");
-    // 팔로워 객체 수정
-    const user2 = await User.findById(werid);
-    user2.followerNum += 1;
-    const followerarr = user2.followerPeople;
-    for(let i=0; i<followerarr.length; i++){
-        if(followerarr[i] === ctx.state.user.username){
-            console.log("followerarr: 이미 ※팔로우※ 했음!!");
-            return false;
+    try{
+        // 팔로잉 객체 수정
+        const user1 = await User.findById(ingid);
+        user1.followingNum += 1;
+        const followingarr = user1.followingPeople;
+        for(let i=0; i<followingarr.length; i++){
+            if(followingarr[i] === whofollowing){
+                console.log("followingarr : 이미 ※팔로우※ 했음!!");
+                return false;
+            }
         }
+        user1.followingPeople = [whofollowing, ...followingarr];
+        await user1.save();
+        console.log("팔로잉 한명 추가!");
+        // 팔로워 객체 수정
+        const user2 = await User.findById(werid);
+        user2.followerNum += 1;
+        const followerarr = user2.followerPeople;
+        for(let i=0; i<followerarr.length; i++){
+            if(followerarr[i] === ctx.state.user.username){
+                console.log("followerarr: 이미 ※팔로우※ 했음!!");
+                return false;
+            }
+        }
+        user2.followerPeople = [whofollower, ...followerarr];
+        await user2.save();
+        console.log("팔로워 한명 추가됨!");
+        const token = user1.generateToken();
+        //쿠키 생성
+        ctx.cookies.set('hjsta_token',token,{
+            maxAge: 1000 * 60 * 60 * 24 * 7,
+            httpOnly:true, // 자바스크립트 해킹 방지!
+        });
+        ctx.body = {"로그인한나":user1, "내가팔로잉한애":user2}
+    }catch(e){
+        throw(500,e);
     }
-    user2.followerPeople = [whofollower, ...followerarr];
-    await user2.save();
-    console.log("팔로워 한명 추가됨!");
-    ctx.body = user1, user2;
 }
 /*
 PATCH 
@@ -327,6 +348,7 @@ PATCH
 export const unfollowing = async (ctx) => {
     const { ingid, werid } = ctx.params;
     const {whounfollowing, whounfollower} = ctx.request.body;
+    try{
     // 팔로잉 객체 수정
     const user1 = await User.findById(ingid);
     if(user1.followingNum > 0){
@@ -351,5 +373,53 @@ export const unfollowing = async (ctx) => {
         console.log("팔로워한명사라짐!");
     }
     await user2.save();
-    ctx.body = user1, user2;
+    const token = user1.generateToken();
+        //쿠키 생성
+        ctx.cookies.set('hjsta_token',token,{
+            maxAge: 1000 * 60 * 60 * 24 * 7,
+            httpOnly:true, // 자바스크립트 해킹 방지!
+        });
+    ctx.body =  {"로그인한나":user1, "내가언팔한애":user2}
+    }catch(e){
+        throw(500,e);
+    }
 }
+
+// 게시물 올릴때 게시물 숫자 +1
+export const addPost = async (ctx) => {
+    try{
+        const user = await User.findById(ctx.state.user._id);
+        user.postsNum += 1;
+        await user.save();
+        const token = user.generateToken();
+        //쿠키 생성
+        ctx.cookies.set('hjsta_token',token,{
+            maxAge: 1000 * 60 * 60 * 24 * 7,
+            httpOnly:true, // 자바스크립트 해킹 방지!
+        });
+        ctx.body = user;
+    }catch(e){
+        ctx.throw(e,500);
+    }
+}
+
+export const removePost = async (ctx) => {
+    try{
+        const user = await User.findById(ctx.state.user._id);
+        if(user.postsNum > 0){
+            user.postsNum -= 1;
+        }
+        await user.save();
+        const token = user.generateToken();
+        //쿠키 생성
+        ctx.cookies.set('hjsta_token',token,{
+            maxAge: 1000 * 60 * 60 * 24 * 7,
+            httpOnly:true, // 자바스크립트 해킹 방지!
+        });
+        ctx.body = user;
+    }catch(e){
+        ctx.throw(e,500);
+    }
+}
+
+// ※ user 관련해서 뭐 수정하면 다시 토큰 직렬화 해줘서 쿠키에 심어줘야함!! 그래야 다시 로그아웃하고 로그인 안해도 바뀐 정보대로 반영됨!!

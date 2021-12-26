@@ -18,14 +18,11 @@ const UserSchema = new Schema({
     hashedpassword: {
         type:String,
     },
-    posts : [String],  //  피드   이건 잘 모르겠음
-    closefriend : [{
-        user:{
-            _id:mongoose.Types.ObjectId,
-            username: String,
-        }        
-    }],
-    savePeed: [String], // 저장됨   이것도 잘 모르겟음
+    postsNum : {
+        type:Number,
+        default:0,
+    },  //  피드   이건 잘 모르겠음
+
     introment: {
         type:String,
     },
@@ -40,9 +37,6 @@ const UserSchema = new Schema({
     followingPeople :[String], // 팔로잉 리스트
     followerPeople : [String], // 팔로워 리스트 
 });
-
-// followers, following, closefriend 는 여러명이기 때문에 배열 처리 []
-// 일단 댓글하고 좋아요는 필요없을거 같아서 뺌
 
 
 // 비밀번호 암호화 하기
@@ -97,7 +91,8 @@ UserSchema.methods.generateToken = function(){
             followingPeople: this.followingPeople,
             followerPeople: this.followerPeople,
             followerNum:this.followerNum,
-            followingNum:this.followingNum
+            followingNum:this.followingNum,
+            postsNum:this.postsNum,
         },
         '!@#$%^&*()',
         { expiresIn: '7d' },

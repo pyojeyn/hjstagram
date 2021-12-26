@@ -17,6 +17,7 @@ const jwtMiddleware = async(ctx,next)=>{
             followerPeople : decoded.followerPeople,
             followerNum: decoded.followerNum,
             followingNum: decoded.followingNum,
+            postsNum: decoded.postsNum,
         };
         const now = Math.floor(Date.now() / 1000);
         if(decoded.exp - now < 60 * 60 *24 *3.5){ // 남은 시간이 3.5일보다 적다면
