@@ -56,5 +56,7 @@ auth.patch('/removePost', authCtrl.removePost);
 
 // 127.0.0.1:4000/api/auth/profileChange 프로필 사진 변경
 auth.patch('/profileChange', authCtrl.profileurl);
+// 127.0.0.1:4000/api/auth/getF4Fprofile 
+auth.patch('/getF4Fprofile', authCtrl.getF4Fprofile);
 
 export default auth;

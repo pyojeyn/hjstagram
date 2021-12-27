@@ -441,7 +441,22 @@ export const profileurl = async (ctx) => {
     }catch(e){
         ctx.throw(e,500);
     }
-    
+}
+
+// 맞팔된 사람 프로필 url 가져와야함
+export const getF4Fprofile = async (ctx) => {
+    const {username} = ctx.request.body;
+    console.log(username);
+    console.log("나오니?");
+    try{
+        const user = await User.findByUsername(username);
+        user.profileurl = user.profileurl;
+        await user.save();
+        console.log(user);
+        ctx.body = user;
+    }catch(e){
+        ctx.throw(e,500);
+    }
 }
 
 // ※ user 관련해서 뭐 수정하면 다시 토큰 직렬화 해줘서 쿠키에 심어줘야함!! 그래야 다시 로그아웃하고 로그인 안해도 바뀐 정보대로 반영됨!!

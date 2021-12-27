@@ -39,6 +39,7 @@ export const write = async (ctx) => {
     if(result.error){
         ctx.status = 400;
         ctx.body = result.error;
+        console.log("????")
         return;
     }
  
@@ -47,6 +48,7 @@ export const write = async (ctx) => {
         tags,
         contents:sanitizeHtml(contents,sanitizeOption),
         user: ctx.state.user,
+        useremail: ctx.state.user.email,
     });
 
     try{
@@ -271,4 +273,43 @@ export const deleteComment = async (ctx) => {
     await post.save();
     console.log(post);
     ctx.body = post;
+}
+
+
+// 글쓴이가 자기 프로필 바꾸면 메인카드에 있는 작은 프로필도 바껴야함
+export const editprofileurl = async (ctx) => {
+
+    const {profilepicurl} = ctx.request.body;
+    
+    try{
+        const post = await Post.findByUseremail(ctx.state.user.email);
+        console.log("이거 포스트임??")
+        console.log(post);
+        for(let i=0; i<post.length; i++){
+            post[i].user.profileurl = profilepicurl;
+            await post[i].save();
+        }
+        ctx.body = post;
+    }catch(e){
+        ctx.throw(e,500);
+    }
+    
+}
+// 글쓴이가 자기  바꾸면 메인카드에 있는 작은 프로필도 바껴야함
+export const editusername = async (ctx) => {
+    const { username } = ctx.request.body;
+
+    try{
+        const post = await Post.findByUseremail(ctx.state.user.email);
+        console.log("이거 포스트임??")
+        console.log(post);
+        for(let i=0; i<post.length; i++){
+            post[i].user.username = username;
+            await post[i].save();
+        }
+        ctx.body = post;
+    }catch(e){
+        ctx.throw(e,500);
+    }
+
 }

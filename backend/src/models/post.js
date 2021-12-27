@@ -8,6 +8,7 @@ const PostSchema = new Schema({
     user:{ // 글쓴이
         _id:mongoose.Types.ObjectId,
         username: String,
+        profileurl: String, 
     },
     contents : { // 내용
         type: String,
@@ -24,7 +25,13 @@ const PostSchema = new Schema({
     commentArr:[String],
     usernameArr:[String],
     likeby:[String],
+    useremail:{ type:String, ref:'users'}
 });
+
+PostSchema.statics.findByUseremail = function(email){
+    return this.find({useremail:email});
+}
+
 
 const Post = mongoose.model('Post',PostSchema);
 export default Post;

@@ -1,7 +1,7 @@
 import Router from "koa-router";
 import  * as postCtrl from './post.ctrl';
 import checkLoggedIn from "../../lib/chekLoggedIn";
-
+import getUserById from "../../lib/getUserById";
 const posts = new Router();
 
 
@@ -10,7 +10,14 @@ posts.post('/',checkLoggedIn, postCtrl.write);
 // 127.0.0.1:4000/api/posts
 posts.get('/',postCtrl.list);
 
+posts.patch('/editprofileurl', postCtrl.editprofileurl);
+
+posts.patch('/editusername',postCtrl.editusername);
+
+
+
 const post = new Router();
+
 
 // 127.0.0.1:4000/api/posts/id
 post.get('/', postCtrl.read);
