@@ -198,19 +198,16 @@ export const path = async (ctx) => {
     ctx.body = post;
 }
 
-/*
-    PATCH /api/posts/:id/giveComment
-*/
+
 export const giveComment = async (ctx) => {
     const { id } = ctx.params;
     const { content } = ctx.request.body;
 
     const post = await Post.findById(id);
-    const commentarr = post.commentArr;
-    const usernamearr = post.usernameArr;
-    console.log(post.commentArr);
-    post.commentArr = [content, ...commentarr];
-    post.usernameArr = [ctx.state.user.username, ...usernamearr];
+    const comment = post.comment;
+    console.log(post.comment);
+    post.comment = [{content:content, who:ctx.state.user.username}, ...comment]
+    
     await post.save();
     console.log(post);
     ctx.body = post;
@@ -258,21 +255,23 @@ export const cancleLikeby = async (ctx) => {
     ctx.body = post;
 }
 
-/*
-    PATCH /api/posts/:id/deleteComment
-*/
+
+
 export const deleteComment = async (ctx) => {
-    const { id } = ctx.params;
-    const { content } = ctx.request.body;
-    const post = await Post.findById(id);
-    const commentarr = post.commentArr;
-    let index = commentarr.indexOf(content);
-    if (index > -1) {
-        commentarr.splice(index, 1);
+    const { id, cid } = ctx.params;
+    try{
+        const post = await Post.findByIdAndUpdate(id, {$pull: {comment:{_id:cid}}},{ new:true,}).exec();
+        console.log("삭제 된거 ?");
+        if(!post){
+            ctx.status = 404;
+            return;
+        }
+        ctx.body = post;
+        console.log("근데 왜 응답 안해줌?");
+    }catch(e){
+        ctx.throw(e, 500);
     }
-    await post.save();
-    console.log(post);
-    ctx.body = post;
+    
 }
 
 

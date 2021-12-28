@@ -459,4 +459,17 @@ export const getF4Fprofile = async (ctx) => {
     }
 }
 
+export const getUser = async (ctx) => {
+    const { id } = ctx.params;
+    try{
+        const user = await User.findById(id);
+        ctx.body = user.serialize();
+    }catch(e){
+        ctx.throw(500,e);
+        
+    }
+    
+    
+}
+
 // ※ user 관련해서 뭐 수정하면 다시 토큰 직렬화 해줘서 쿠키에 심어줘야함!! 그래야 다시 로그아웃하고 로그인 안해도 바뀐 정보대로 반영됨!!

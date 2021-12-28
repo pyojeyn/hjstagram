@@ -22,10 +22,12 @@ const PostSchema = new Schema({
         default: 0,
     },
     fileurls:[String],
-    commentArr:[String],
-    usernameArr:[String],
     likeby:[String],
-    useremail:{ type:String, ref:'users'}
+    useremail:{ type:String, ref:'users'},
+    comment :[{
+        content:{type:String},
+        who:{type:String}
+    }]
 });
 
 PostSchema.statics.findByUseremail = function(email){

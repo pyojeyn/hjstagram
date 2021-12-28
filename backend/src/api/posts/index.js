@@ -49,8 +49,8 @@ post.patch('/', postCtrl.path);
 post.patch('/givecomment',postCtrl.giveComment)
 
 // 댓글 삭제했을 때
-// api/posts/${ID}/deleteComment
-post.patch('/deleteComment', postCtrl.deleteComment);
+// api/posts/${ID}/${comment객체_id}/deleteComment
+post.patch('/:cid/deleteComment', postCtrl.deleteComment);
 
 posts.use('/:id',postCtrl.getPostById, post.routes());
 
