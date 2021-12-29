@@ -26,7 +26,8 @@ const PostSchema = new Schema({
     useremail:{ type:String, ref:'users'},
     comment :[{
         content:{type:String},
-        who:{type:String}
+        who:{type:String},
+        whoid:{type:mongoose.Types.ObjectId}
     }]
 });
 

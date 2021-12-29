@@ -206,7 +206,7 @@ export const giveComment = async (ctx) => {
     const post = await Post.findById(id);
     const comment = post.comment;
     console.log(post.comment);
-    post.comment = [{content:content, who:ctx.state.user.username}, ...comment]
+    post.comment = [{content:content, who:ctx.state.user.username ,whoid:ctx.state.user._id}, ...comment]
     
     await post.save();
     console.log(post);
