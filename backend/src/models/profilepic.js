@@ -1,6 +1,6 @@
 import mongoose,{ Schema } from 'mongoose';
 
-//프로필 이미지
+//프로필 이미지!!
 
 const ProfilePicSchema = new Schema({
 	originalFileName : { type: String}, // 업로드된 파일명
