@@ -6,29 +6,12 @@ import {
     resetPasswordTemplate
 } from '../../lib/email';
 
-// 객체를 매개변수로 보내는 함수
-// export const usePasswordHashToMakeToken = ({
-//     password:hashedpassword,
-//     _id:userId,
-//     createdAt
-// }) => {
-//     const secret = hashedpassword + "-" + createdAt;
-//     const token = jwt.sign({userId}, secret, {
-//         expiresIn: 3600 // 1시간
-//     })
-//     return token;
-// };
-
-
-// 이메일 발송해주는 api
+// 이메일 발송 API 
 export const sendPasswordResetEmail = async (ctx) => {
     
     try{
-        const { email } = ctx.request.body; //왜 email 이 params임?
-        console.log("email : " + email);
+        const { email } = ctx.request.body; 
         const user = await User.findByEmail(email).exec();
-        console.log("user : "+user);
-
         const token = user.generateToken();
         const url = getPasswordResetURL(user,token);
         const emailTemplate = resetPasswordTemplate(user,url);
@@ -37,7 +20,7 @@ export const sendPasswordResetEmail = async (ctx) => {
                 if(err){
                     ctx.throw(500,err);
                 }
-                console.log(`** Email sent **`, info.response);
+                console.log(`** 이메일 발송 성공 **`, info.response);
             });
         }
         sendEmail();   
@@ -47,25 +30,16 @@ export const sendPasswordResetEmail = async (ctx) => {
     }
 }
 
-// 비밀번호 변경하는 api
+// 비밀번호 변경 API
 export const receiveNewPassword = async (ctx) => {
     const { token, userId } =ctx.params;
     const { password } = ctx.request.body;
-
-    console.log('userId : ' + userId);
-    console.log('token : ' + token);
-    console.log('password : ' + password);
-
     const user = await User.findById({_id:userId});
 
     if(user){
         const secret = '!@#$%^&*()';
         const payload = jwt.decode(token,secret);
-        console.log("payload");
-        console.log(payload);
-        console.log("user");
-        console.log(user);
-
+        
         if(payload._id === user.id){
             user.hashedpassword = password;
             user.save();
@@ -74,21 +48,4 @@ export const receiveNewPassword = async (ctx) => {
     }else{
         ctx.status = 401;
     }
-    //user.hashedpassword = password
-    // User.findOne({_id:userId})
-    // .then(user => {
-    //     const secret = user.password + "-" + user.createdAt
-    //     const payload = jwt.decode(token, secret)
-    //     if (payload.userId === user.id) {
-    //       bcrypt.genSalt(10, function(err, salt) {
-    //         if (err) return
-    //         bcrypt.hash(password, salt, function(err, hash) {
-    //           if (err) return
-    //           User.findOneAndUpdate({ _id: userId }, { password: hash })
-    //             .then(() => res.status(202).json("Password changed accepted"))
-    //             .catch(err => res.status(500).json(err))
-    //         })
-    //       })
-    //     }
-    //   })
 }

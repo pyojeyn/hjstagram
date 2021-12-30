@@ -1,19 +1,19 @@
 import mongoose,{ Schema } from 'mongoose';
 
 const PostSchema = new Schema({
-    publishedDate:{ // 게시일
+    publishedDate:{ 
         type:Date,
         default:Date.now,
     },
-    user:{ // 글쓴이
+    user:{ 
         _id:mongoose.Types.ObjectId,
         username: String,
         profileurl: String, 
     },
-    contents : { // 내용
+    contents : { 
         type: String,
     },
-    like:{ // 좋아요 수 
+    like:{ 
         type:Number,
         default: 0,
     },
@@ -23,7 +23,7 @@ const PostSchema = new Schema({
     },
     fileurls:[String],
     likeby:[String],
-    useremail:{ type:String, ref:'users'},
+    useremail:{ type:String, ref:'users'}, //key
     comment :[{
         content:{type:String},
         who:{type:String},

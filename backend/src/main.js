@@ -6,32 +6,19 @@ import api from './api'
 import jwtMiddleware from './lib/jwtMiddleware';
 import serve from 'koa-static';
 import path from 'path';
-import socketIO from 'socket.io';
-import htmlRender from 'koa-html-render';
-
 
 const port = 4000;
 const app = new Koa();
 const router = new Router();
 
-//미들웨어 등록!
 router.use('/api', api.routes());
 
-app.use(htmlRender());
 app.use(bodyParser());
 app.use(jwtMiddleware);
 app.use(router.routes()).use(router.allowedMethods());
-app.use(serve(path.join(__dirname, 'uploads')));
+
 app.use(serve(path.join(__dirname, '../../frontend/public/files')));
-app.use(serve(path.join(__dirname, 'profile')));
-app.use(serve(path.join(__dirname, '../../frontend/build')));
-
-
-router.get("/",async ctx=>{
-    await ctx.html("/../../frontend/build/index.html") // The meaning is to return to the client in the root directory of the project, in the static directory, in the html folder named demo.html
-});
-
-// 소켓소켓
+app.use(serve(path.join(__dirname, '../../frontend/public/profile')));
 
 //MongoDB 연결
 mongoose

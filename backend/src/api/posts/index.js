@@ -1,56 +1,52 @@
 import Router from "koa-router";
 import  * as postCtrl from './post.ctrl';
 import checkLoggedIn from "../../lib/chekLoggedIn";
-import getUserById from "../../lib/getUserById";
 const posts = new Router();
 
 
-// 127.0.0.1:4000/api/posts    files : attachment name속성이랑 이름 같아야함
+// /api/posts   피드 올리기    
 posts.post('/',checkLoggedIn, postCtrl.write);
-// 127.0.0.1:4000/api/posts
+
+// /api/posts   전체 피드 리스트
 posts.get('/',postCtrl.list);
 
+// /api/posts/editprofileurl user profileurl 변경(해당 글쓴이가 프로필사진을 변경했을 떄 ㄴ)
 posts.patch('/editprofileurl', postCtrl.editprofileurl);
 
+// /api/posts/editusername user username 변경(해당 글쓴이가 username 변경했을 때)
 posts.patch('/editusername',postCtrl.editusername);
-
-
 
 const post = new Router();
 
 
-// 127.0.0.1:4000/api/posts/id
+// /api/posts/:id
 post.get('/', postCtrl.read);
 
-// 127.0.0.1:4000/api/posts/id
-post.delete('/',checkLoggedIn, postCtrl.checkOwnPost, postCtrl.remove);
+// /api/posts/:id    피드 삭제
+post.delete('/',checkLoggedIn, postCtrl.remove);
 
-// 좋아요 +1 post id 넘겨줌
-// 127.0.0.1:4000/api/posts/${}/addlike
+// /api/posts/:id/addlike   좋아요 +1
 post.patch('/addlike', postCtrl.addLike);
 
-// 좋아요 -1 post id 넘겨줌
-// 127.0.0.1:4000/api/posts/61b80dac1e24c192d5503fb6/canclelike
+// /api/posts/:id/canclelike    좋아요 -1 
 post.patch('/canclelike', postCtrl.cancleLike);
 
-// 좋아요 눌렸을때 좋아요 누른 사람 배열에 추가
-//api/posts/${}/likeby
+// /api/posts/:id/likeby  좋아요 눌렸을때 좋아요 누른 사람 배열에 추가
 post.patch('/likeby', postCtrl.likeby);
 
-// 좋아요 취소했을 때 좋아요 누른 사람 배열에서 삭제
-// api/posts/${}/cancleLikeby
+// /api/posts/:id/cancleLikeby  좋아요 취소했을 때 좋아요 누른 사람 배열에서 삭제
 post.patch('/cancleLikeby', postCtrl.cancleLikeby);
 
-// 파일 첨부할때 url 넘겨줌
+// /api/posts/:id   파일 첨부할때 url 넘겨줌
 post.patch('/', postCtrl.path);
 
-// 댓글 달렸을 때
-//  api/posts/${ID}/givecomment
+//  api/posts/:id/givecomment   댓글 달기
 post.patch('/givecomment',postCtrl.giveComment)
 
-// 댓글 삭제했을 때
-// api/posts/${ID}/${comment객체_id}/deleteComment
+// api/posts/:id/:cid/deleteComment 댓글 삭제
 post.patch('/:cid/deleteComment', postCtrl.deleteComment);
+
+
 
 posts.use('/:id',postCtrl.getPostById, post.routes());
 

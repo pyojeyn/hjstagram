@@ -54,7 +54,6 @@ export const register = async (ctx) => {
 export const login = async(ctx) => {
     const {username,password} = ctx.request.body;
     
-    // 아이디 비번 둘중에 하나 안쳤을때 ?
     if(!username || !password) {
         ctx.status = 401;
         return;
@@ -66,9 +65,10 @@ export const login = async(ctx) => {
             ctx.status = 401;
             return;
         }
-        // 사용자 잇으면 비번 체크하기
+
+        // 사용자 잇으면 비밀번호 체크하기
         const valid = await user.checkPassword(password);
-        if(!valid){ // 비번 틀렷을 때
+        if(!valid){ // 비밀번호 틀렷을 때
             ctx.status = 401;
             return;
         }
@@ -88,12 +88,10 @@ export const login = async(ctx) => {
 
 }
 
-/*
-    Get  /api/auth/check 
-*/
+
 // 로그인 중인지 아닌지를 판단하는 메소드
 export const check = async (ctx) => {
-    const {user} = ctx.state; //user 객체를 뽑아내서 그안에 user객체가 있는지 없는지 판단.
+    const {user} = ctx.state; 
     if(!user){
         ctx.status = 401;
         return;
@@ -101,23 +99,7 @@ export const check = async (ctx) => {
     ctx.body = user;
 };
 
-// export const findbyEmail = async (ctx) => {
-//     const {email} = ctx.request.body;
-//     const user = await User.findByEmail(email);
-//     if(!user){ // username의 아이디 사용자가 없을 때 
-//         ctx.status = 401;
-//         return;
-//     }
-//     ctx.body = user;
-// }
-
-
-
-
-/*
-    PATCH  /api/auth/edit 전혀 안바뀌는거 key!
-*/
-// 수정
+// 수정 전혀 안바뀌는거 key! email
 export const edit = async (ctx) => {
     const { id } = ctx.params;
     const schema = Joi.object().keys({
@@ -127,6 +109,7 @@ export const edit = async (ctx) => {
     });
 
     const result = schema.validate(ctx.request.body);
+
     if(result.error) {
         ctx.status = 400;
         ctx.body = result.error;
@@ -144,10 +127,10 @@ export const edit = async (ctx) => {
             return;
         }
         const token = user.generateToken();
-        //쿠키 생성
+        
         ctx.cookies.set('hjsta_token',token,{
             maxAge: 1000 * 60 * 60 * 24 * 7,
-            httpOnly:true, // 자바스크립트 해킹 방지!
+            httpOnly:true, 
         });
         ctx.body = user;
     }catch(e){
@@ -155,9 +138,6 @@ export const edit = async (ctx) => {
     }
 }
 
-/*
-    DELETE  /api/auth/delete 
-*/
 // 삭제
 export const remove = async (ctx) => {
     const { id } = ctx.params;
@@ -169,24 +149,13 @@ export const remove = async (ctx) => {
     }
 }
 
-/*
-    POST /api/auth/logout
-*/
-
+// 로그아웃
 export const logout = async (ctx) => {
     ctx.cookies.set('hjsta_token');
     ctx.status = 204;
 }
 
-
-/*  
-    PATCH /api/auth/changepw
-
-    {
-        "password" :
-    }
-*/
-
+// 비밀번호 변경
 export const changePassword = async (ctx) => {
     const { Oldpassword, newPassword } = ctx.request.body;
     const { id } = ctx.params;
@@ -194,22 +163,17 @@ export const changePassword = async (ctx) => {
     try{
        const user = await User.findById({ _id: id })
         if(!user){ // username의 아이디 사용자가 없을 때 
-            console.log('user 있나없나확인');
             ctx.status = 401;
             return;
         }
         const valid = await user.checkPassword(Oldpassword);
         if(!valid) {
-            console.log('비밀번호 맞는지 확인');
             ctx.status = 401;
             return;
         }
         if (valid) {
-            // change to new password
             user.hashedpassword = newPassword;
-            console.log('비밀번호 바꿈');
             user.save();
-            console.log('저장')
             ctx.body = user.serialize();
 
             const token = user.generateToken();
@@ -230,22 +194,21 @@ export const changePassword = async (ctx) => {
 // 아이디 비번 체크
 export const idAndPassWordCheck = async (ctx) => {
     const {username, password} = ctx.request.body;
-    console.log(username);
-    console.log(password);
+
     const exists = await User.findByUsername(username);
 
-        if(exists){
-            ctx.body = exists;  
-            const valid = await exists.checkPassword(password);
+    if(exists){
+        ctx.body = exists;  
+        const valid = await exists.checkPassword(password);
 
-            if(!valid){ // 비번 틀렷을 때
-                ctx.body = { pw : "틀림"}
-            }  
-        }
+        if(!valid){ 
+            ctx.body = { pw : "틀림"}
+        }  
+    }
 
-        if(!exists){
-            ctx.body = { person : "없다고"}
-        }
+    if(!exists){
+        ctx.body = { person : "없다고"}
+    }
 }
 
 // 회원가입, 프로필 편집 아이디 중복확인
@@ -276,7 +239,7 @@ export const expwCheck = async (ctx) => {
 
     const user = await User.findById(id);
     const valid = await user.checkPassword(password);
-    if(!valid){ // 비번 틀렷을 때
+    if(!valid){ 
         ctx.body = { expw : "틀림"}
     }
     if(valid){
@@ -284,22 +247,15 @@ export const expwCheck = async (ctx) => {
     }
 }
 
-// 팔로잉 했을때 1.팔로잉한 사람 팔로잉 수 +1, 팔로잉배열에 추가
-/*
-    PATCH 
-    {
-        "whofollowing" : "",
-        "whofollower" : "",
-    }
-*/ 
+// 팔로잉  1.팔로잉한 사람 팔로잉 수 +1, 팔로잉배열에 추가
 export const following = async (ctx) => {
     const { ingid, werid } = ctx.params; 
     const {whofollowing, whofollower} = ctx.request.body; 
 
     if(whofollowing === whofollower){
-        console.log("본인 팔로우 하면 안됨!");
         return false;
     }
+    
     try{
         // 팔로잉 객체 수정
         const user1 = await User.findById(ingid);
@@ -307,44 +263,40 @@ export const following = async (ctx) => {
         const followingarr = user1.followingPeople;
         for(let i=0; i<followingarr.length; i++){
             if(followingarr[i] === whofollowing){
-                console.log("followingarr : 이미 ※팔로우※ 했음!!");
+                console.log("이미 ※팔로우※ 했음!!");
                 return false;
             }
         }
         user1.followingPeople = [whofollowing, ...followingarr];
         await user1.save();
-        console.log("팔로잉 한명 추가!");
+        console.log("팔로잉 + 1");
+
         // 팔로워 객체 수정
         const user2 = await User.findById(werid);
         user2.followerNum += 1;
         const followerarr = user2.followerPeople;
         for(let i=0; i<followerarr.length; i++){
             if(followerarr[i] === ctx.state.user.username){
-                console.log("followerarr: 이미 ※팔로우※ 했음!!");
+                console.log("이미 ※팔로우※ 했음!!");
                 return false;
             }
         }
         user2.followerPeople = [whofollower, ...followerarr];
         await user2.save();
-        console.log("팔로워 한명 추가됨!");
+        console.log("팔로워 +1");
         const token = user1.generateToken();
-        //쿠키 생성
+        
         ctx.cookies.set('hjsta_token',token,{
             maxAge: 1000 * 60 * 60 * 24 * 7,
-            httpOnly:true, // 자바스크립트 해킹 방지!
+            httpOnly:true, 
         });
-        ctx.body = {"로그인한나":user1, "내가팔로잉한애":user2}
+        ctx.body = {"로그인한 나":user1.serialize(), "내가 팔로잉한 사용자":user2.serialize()}
     }catch(e){
         throw(500,e);
     }
 }
-/*
-PATCH 
-    {
-        "whounfollowing" : "",
-        "whofollower" : "",
-    }
-*/ 
+
+// 팔로잉 끊기 
 export const unfollowing = async (ctx) => {
     const { ingid, werid } = ctx.params;
     const {whounfollowing, whounfollower} = ctx.request.body;
@@ -358,10 +310,10 @@ export const unfollowing = async (ctx) => {
     let index = followingarr.indexOf(whounfollowing);
     if(index > -1){
         followingarr.splice(index,1);
-        console.log("팔로잉취소!");
+        console.log("팔로잉 -1");
     }
     await user1.save();
-    // 언팔당한 사람 수정
+    // 팔로잉 끊킨 사람 수정
     const user2 = await User.findById(werid);
     if(user2.followerNum > 0){
         user2.followerNum -=1;
@@ -370,16 +322,16 @@ export const unfollowing = async (ctx) => {
     let index2 = followerarr.indexOf(whounfollower);
     if(index2 > -1){
         followerarr.splice(index, 1);
-        console.log("팔로워한명사라짐!");
+        console.log("팔로워 -1");
     }
     await user2.save();
     const token = user1.generateToken();
-        //쿠키 생성
+        
         ctx.cookies.set('hjsta_token',token,{
             maxAge: 1000 * 60 * 60 * 24 * 7,
-            httpOnly:true, // 자바스크립트 해킹 방지!
+            httpOnly:true, 
         });
-    ctx.body =  {"로그인한나":user1, "내가언팔한애":user2}
+    ctx.body =  {"로그인한 나":user1.serialize(), "내가 팔로잉끊은 사용자":user2.serialize()}
     }catch(e){
         throw(500,e);
     }
@@ -392,17 +344,18 @@ export const addPost = async (ctx) => {
         user.postsNum += 1;
         await user.save();
         const token = user.generateToken();
-        //쿠키 생성
+        
         ctx.cookies.set('hjsta_token',token,{
             maxAge: 1000 * 60 * 60 * 24 * 7,
-            httpOnly:true, // 자바스크립트 해킹 방지!
+            httpOnly:true, 
         });
-        ctx.body = user;
+        ctx.body = user.serialize();
     }catch(e){
         ctx.throw(e,500);
     }
 }
 
+// 게시물 삭제할때 게시물 숫자 -1
 export const removePost = async (ctx) => {
     try{
         const user = await User.findById(ctx.state.user._id);
@@ -411,17 +364,18 @@ export const removePost = async (ctx) => {
         }
         await user.save();
         const token = user.generateToken();
-        //쿠키 생성
+        
         ctx.cookies.set('hjsta_token',token,{
             maxAge: 1000 * 60 * 60 * 24 * 7,
-            httpOnly:true, // 자바스크립트 해킹 방지!
+            httpOnly:true, 
         });
-        ctx.body = user;
+        ctx.body = user.serialize();;
     }catch(e){
         ctx.throw(e,500);
     }
 }
 
+// 프로필 사진 변경
 export const profileurl = async (ctx) => {
     
     const {profilepicurl} = ctx.request.body;
@@ -432,33 +386,31 @@ export const profileurl = async (ctx) => {
     
         await user.save();
         const token = user.generateToken();
-            //쿠키 생성
+        
         ctx.cookies.set('hjsta_token',token,{
             maxAge: 1000 * 60 * 60 * 24 * 7,
-            httpOnly:true, // 자바스크립트 해킹 방지!
+            httpOnly:true, 
         });
-        ctx.body = user;
+        ctx.body = user.serialize();
     }catch(e){
         ctx.throw(e,500);
     }
 }
 
-// 맞팔된 사람 프로필 url 가져와야함
+// 서로 팔로잉한 사람 프로필 url 
 export const getF4Fprofile = async (ctx) => {
     const {username} = ctx.request.body;
-    console.log(username);
-    console.log("나오니?");
     try{
         const user = await User.findByUsername(username);
         user.profileurl = user.profileurl;
         await user.save();
-        console.log(user);
-        ctx.body = user;
+        ctx.body = user.serialize();
     }catch(e){
         ctx.throw(e,500);
     }
 }
 
+// 다른 사용자 정보 
 export const getUser = async (ctx) => {
     const { id } = ctx.params;
     try{
@@ -468,8 +420,5 @@ export const getUser = async (ctx) => {
         ctx.throw(500,e);
         
     }
-    
-    
 }
 
-// ※ user 관련해서 뭐 수정하면 다시 토큰 직렬화 해줘서 쿠키에 심어줘야함!! 그래야 다시 로그아웃하고 로그인 안해도 바뀐 정보대로 반영됨!!
