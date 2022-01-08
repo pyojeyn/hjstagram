@@ -1,0 +1,729 @@
+
+/* add me css*/
+
+$modal-text-red:rgb(243, 76, 76); 
+$modal-text:rgb(85, 85, 85);
+
+input,textarea:focus {
+
+    outline: none !important;
+
+}
+
+.navbarScrollingDropdown {
+    top: 12px;
+    position: relative;
+    margin-left: 5px;
+    cursor: pointer;
+}
+
+
+.main_profileImage_box{
+    width: 30px;
+    height: 30px; 
+    border-radius: 70%;
+    overflow: hidden;
+}
+
+.main_profileImage{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;  // 이거 card 이미지에 적용해보기
+}
+
+.navber{
+    height: 60px;
+    width: 100%;
+    border: 1px solid rgb(211, 211, 211);
+    background: white;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+}
+
+.navber_Container{
+   position:relative; top:50%; left:50%; text-align:center; display: inline-flex;
+}   // Container아래에 div를 하나 더 감싸서 display: flex;로 정렬 후 해상도 고정 하.. 
+
+
+.main-instagram-logo{
+    position: relative;
+    top: 8px;
+    width: 105px;
+    right: 515px;
+  }
+
+.d-flex{
+    position: relative;
+    margin-top: 10px;
+    width: 200px;
+    height: 35px;
+    right: 300px;
+}
+
+.navlink_div{
+    display: inline-flex;
+    position: relative;
+    left: 200px;
+    top: 2px;
+}
+
+.header_home{
+    position: relative;
+    width: 37px;
+}
+
+.header_chat{
+    @extend .header_home;
+    margin-left: -10px
+}
+
+.header_edit{
+    @extend .header_home;
+    margin-right: 12px;
+}
+
+.header_heart{
+    @extend .header_home;
+    margin-left: -10px
+}
+
+.header_navdrop{
+    position: relative;
+}
+  
+.main_card{
+    position: relative;
+    right: 190px;
+    margin: 1% auto;
+    margin-top: 60px;
+    height: 300px;
+    top: 50px;
+    z-index: 3;
+    border: 1px solid rgb(175, 175, 175);
+    background-color: white;
+    overflow:hidden;
+   height:auto;
+}
+
+.herat_zzim_bubble{
+    display: flex;
+}
+
+.list-group-item{
+    border:  1px solid rgb(207, 207, 207);
+}
+
+.main_card_img{
+    width: 100%;
+    height: 80%;
+    object-fit: cover;
+    // border: 1px solid rgb(207, 207, 207);
+}
+
+.main_herat_off, .main_heart_on{
+    @extend .header_home;
+    margin-right: 15px;
+    width: 35px;
+    cursor: pointer;
+}
+
+.main_smile{
+    position: relative;
+    width: 36px;
+    top: 1px;
+}
+
+
+.main_follow{
+    @extend .header_home;
+    margin-right: 500px;
+    width: 35px;
+    top: 1px;
+    cursor: pointer;
+}
+
+
+.main_zzim_off, .main_zzim_on{
+    @extend .header_home;
+    cursor: pointer;
+}
+
+.main_profile{
+    height: 55px;
+    background: white;
+    // border: 1px solid rgb(207, 207, 207);
+}
+
+.profile_div{
+    position: relative;
+    top: 10px;
+    left: 15px;
+}
+
+.main_profile_div{
+    position: relative;
+}
+
+
+.main_Point{
+    @extend .header_home;
+    position: relative;
+    left: 585px;
+    top: -45px;
+    cursor: pointer;
+}
+
+.main_textarea{
+    width: 100%;
+    height: 6.25em;
+    border: none;
+    resize: none; 
+}
+
+.main_username{
+    position: relative;
+    left: 50px;
+    bottom: 25px;
+    font-weight: bold;
+    color: #353535;
+}
+
+.main_cardprofileImage_box{
+    position: relative;
+    top: 3px;
+}
+
+.main_card_textarea{
+    border: 1px solid white;
+    overflow:hidden;
+    resize: none;
+    display: flex;
+    margin-bottom: 0;
+    flex-wrap: nowrap;
+    width: 620px;
+    position: relative;
+}
+
+.main_card_textarea_button{
+    font-size: 15px;
+    font-weight: 1000;
+    color: rgb(7, 143, 255);
+    text-align: center;
+    display: inline;
+    padding: 0;
+    position: relative;
+    top: 1px;
+    border: none;
+    background: none;
+    line-height: 15px;
+    margin:  0 auto;
+    width: 10%;
+
+}
+
+.closefriends_div_mem{
+    position: fixed;
+    margin: 0 auto;
+    width: 100%;
+    top: 130px;
+
+}
+
+.closefriends_div_me{
+    position:relative;
+    margin: 0 auto;
+    width: 300px;
+    left: 400px;
+    z-index: 100;
+
+}
+
+
+.closefriends_div{
+    position: relative;
+    right: 20px;
+    margin-top: 20px;
+    height: 200px;
+    width: 270px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+
+
+}
+
+.closefriends_div::-webkit-scrollbar {
+    background-color: #eeeeee;
+    border-radius: 5vw;
+    width: 10px;
+}
+
+.closefriends_div::-webkit-scrollbar-thumb {
+    background-color: #a2bece;
+    border-radius: 5vw;
+}
+
+
+
+
+.main_name{
+    position: relative;
+    left: 50px;
+    bottom: 25px;
+    color: rgb(107, 107, 107);
+}
+
+.closefriends_closetext{
+    font-weight: bold;
+    // color: rgb(36, 156, 255);
+    color: rgb(107, 107, 107);
+    font-size: 15px;
+    position: relative;
+    right: 20px;
+}
+
+.closefriends_alltext{
+    font-weight: bold;
+    font-size: 13px;
+    color: rgb(7, 143, 255);
+    margin-left: 130px;
+    cursor: pointer;
+    
+}
+
+.closefriends_profileImage_box{
+    width: 55px;
+    height: 55px; 
+    border-radius: 70%;
+    overflow: hidden;
+    position: relative;
+    right: 20px;
+    top: 25px;
+}
+
+
+.closefriends_span{
+    position: relative;
+    left: 45px;
+    bottom: 25px;
+    color: #353535;
+}
+
+.modal_main_point {
+    P{
+        color: $modal-text;
+        font-weight: bolder;
+        text-align: center;
+        margin-bottom: 40px;
+        margin-top: 6%;
+        cursor: pointer;
+    }
+    .modal_text_red{
+       color: $modal-text-red; 
+    }
+}
+
+.modal_main_point{  
+    position: absolute;
+    top: calc(50vh - 80px);
+    // justify-content: center;
+    align-items: center;
+    width: 400px;
+    height: 140px;
+    border-radius: 0.7rem;
+    background-color: white;
+    left: calc(50vw - 200px);
+}
+
+.modal_main_profilechange{
+    position: absolute;
+    top: calc(50vh - 80px);
+    // justify-content: center;
+    align-items: center;
+    width: 400px;
+    height: 140px;
+    border-radius: 0.7rem;
+    background-color: white;
+    left: calc(50vw - 200px);
+}
+
+.modal_main_profilechange {
+    P{
+        color: $modal-text;
+        font-weight: bolder;
+        text-align: center;
+        margin-bottom: 40px;
+        margin-top: 6%;
+        cursor: pointer;
+    }
+    .modal_text_red{
+       color: $modal-text-red; 
+    }
+}
+
+
+.modal_editprofile_point{  
+    position: absolute;
+    top: calc(50vh - 100px);
+    // justify-content: center;
+    align-items: center;
+    width: 400px;
+    height: 270px;
+    border-radius: 0.7rem;
+    background-color: white;
+    left: calc(50vw - 200px);
+    height: 140px;
+}
+
+
+.modal_main_point_text{
+    position: relative;
+}
+
+.modal_background{
+    position: fixed;
+    top:0; left: 0; bottom: 0; right: 0;
+    background: rgba(0, 0, 0, 0.8);
+    z-index: 999;
+  }
+
+  
+  .modal_main_profile{  
+    position: relative;
+    margin: 0 auto;
+    left: 400px;
+    top: 50px;
+    width: 200px;
+    height: 100px;
+    border-radius: 0.7rem;
+    background-color: white;
+    border: 1px solid rgb(214, 214, 214);
+    text-decoration-line : none;
+}
+
+.modal_main_profile_text{
+    p{
+        color: $modal-text;
+        font-weight: bolder;
+        text-align: center;
+        margin-bottom: 20px;
+        margin-top: 6%;
+        cursor: pointer;
+        text-decoration: none;
+    }
+}
+
+.modal_background_white{
+    position: fixed;
+    top:0; left: 0; bottom: 0; right: 0;
+    background: rgba(255, 255, 255, 0);
+    z-index: 500;   // 999였던거 500으로 바꿈 팔로잉 팔로우 버튼 안눌려가지고
+  }
+
+.herder_zzim{
+    position: relative;
+    bottom: 10px;
+}
+
+.modal_text_blue{
+    text-decoration: none;
+    color: inherit;
+    span:hover { text-decoration: none;}
+
+}
+
+.modal_main_heart{  
+    position: relative;
+    margin: 0 auto;
+    left: 155px;
+    top: 50px;
+    width: 600px;
+    height: 250px;
+    border-radius: 0.7rem;
+    background-color: white;
+    border: 1px solid rgb(214, 214, 214);
+}
+
+.modal_main_heart_in{
+    height: 50px;
+}
+
+.modal_main_heart_text{
+    overflow-y: scroll;
+    overflow-x: hidden;
+    height: 200px;
+    p{
+        color: $modal-text;
+        font-weight: bolder;
+        text-align: center;
+        margin-bottom: 20px;
+        margin-top: 4%;
+        cursor: pointer;
+    }
+}
+
+.main_profileImage_heart_box{
+    width: 40px;
+    height: 40px; 
+    border-radius: 70%;
+    overflow: hidden;
+    margin-left: 20px;
+}
+
+.main_username_heart{
+    position: relative;
+    text-align: left;
+    left: 75px;
+    bottom: 35px;
+    font-weight: bold;
+}
+
+.Modal_main_heart_button{
+    position: relative;
+    bottom: 81px;
+    left: 480px;
+    border-radius: 6px;
+    background-color: white;
+    font-weight: 600;
+    border: 1px solid gray;
+}
+
+.Modal_main_heart_button2{
+    position: relative;
+    bottom: 81px;
+    left: 480px;
+    border-radius: 6px;
+    background-color: #0095f6;
+    font-weight: 600;
+    color: white;
+    border: 1px solid rgb(255, 255, 255);
+}
+
+
+.modal_main_edit{
+    position: absolute;
+    top: calc(50vh - 300px);
+    margin: 0 auto;
+    justify-content: center;
+    align-items: center;
+    width: 600px;
+    height: 600px;
+    border-radius: 0.7rem;
+    background-color: white;
+    left: calc(50vw - 350px);
+    P{
+        color: $modal-text;
+        font-weight: bolder;
+        text-align: center;
+        margin-bottom: 40px;
+        margin-top: 6%;
+        cursor: pointer;
+    }
+}
+
+.modal_main_edit_text{
+    position: relative;
+    right: 30px;
+}
+
+.CloseButton{
+    position: relative;
+    width: 30px;
+    left: 10px;
+    top: 10px;
+    cursor: pointer;
+}
+
+.main_edit_file_div{
+    position: relative;
+    margin: 0 auto;
+    border:  1px solid rgb(172, 172, 172);
+    background-color: white;
+    width: 800px;
+    height: 600px;
+    // top: 200px;
+    top: calc(50vh - 270px);
+    text-align: center;
+    border-radius: 0.7rem;
+    p{
+        font-weight: bold;
+        font-size: 20px;
+        color: #4e4e4e;
+    }
+}
+
+// position: absolute;
+// top: calc(50vh - 150px);
+// // justify-content: center;
+// align-items: center;
+// width: 400px;
+// height: 265px;
+// border-radius: 0.7rem;
+// background-color: white;
+// left: calc(50vw - 200px);
+
+
+.main_edit_fileimage{
+    position: absolute;
+    bottom: 100px;
+    left: 250px;
+    width: 300px;
+    height: 300px;
+    bottom: 200px;
+    object-fit:cover;
+    border:  1px solid rgb(94, 94, 94);
+}
+
+.main_edit_file_textarea{
+    resize: none;
+    height: 60px;
+    width: 30px;
+}
+
+.edit_file_submit{
+    margin-left: 30px;
+}
+
+.imgUpload{
+    position: relative;
+    right: 193px;
+    margin-top: 20px;
+    background-color: 30px;
+}
+
+.main_edit_fileimage_div2{
+    z-index: 999;
+    position: relative;
+    top: 170px;
+}
+
+.fileupload{
+    width: 250px;
+    position: relative;
+    top: 60px;
+}
+
+.main_edit_fileimage_button{
+    position: relative;
+    left: 270px;
+    bottom: 30px;
+}
+
+.comment_div{
+    height: 450px;
+    background-color: white;
+    border-radius: 0.7rem;
+}
+
+.main_comments_card{
+    position: absolute;
+    top: calc(50vh - 230px);
+    height: 800px;
+    width: 450px;
+    left: calc(50vw - 250px);
+    border-radius: 0.7rem;
+}
+
+.comment_heart_zzim{
+    display: inline-flex;
+}
+
+.commment_close{
+    position: relative;
+    left: 400px;
+}
+
+.File_Upload{
+    z-index: 999;
+    position: relative;
+    width: 600px;
+    margin: 0 auto;
+    object-fit: scale-down;
+}
+
+.main_edit_fileimage_div{
+    position: relative;
+    bottom: 330px;
+    object-fit: scale-down;
+}
+
+.new_edit{
+    position: relative;
+    bottom: 10px;
+    object-fit: scale-down;
+}
+
+// 게시물 업로드 
+.edit_img_size{
+    // position: absolute;
+    bottom: 100px;
+    left: 250px;
+    width: 300px;
+    height: 330px;
+    bottom: 200px;
+    object-fit: contain;
+}
+
+// 메인카드
+.edit_img_size_card{
+    bottom: 100px;
+    left: 250px;
+    width: 300px;
+    height: 550px;
+    bottom: 200px;
+    object-fit: cover; 
+}
+
+
+
+.maincard_Comment{
+    margin-top: 12px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.contents_div{
+    margin-top: 3px;
+}
+
+
+.like_div{
+    font-weight: bold;
+    margin-top: 12px;
+}
+
+.input_ListGroup{
+    border: 1px solid red;
+    margin-bottom: 30px;
+}
+
+
+// .contents_div_div{
+//     border: 1px solid red;
+// }
+
+.contents_div_username{
+    font-weight: bold;
+}
+
+.contents_div_username_span{
+    // border: 1px solid red;
+    position: relative;
+    margin-left: 10px;
+}
+
+.delete_1{
+    width: 21px;
+    height: 21px;
+    margin-bottom: 4px;
+    cursor: pointer;
+    // font-weight: bold;
+    color: #353535;
+}
+
+.W_Who{
+    color: #353535;
+}

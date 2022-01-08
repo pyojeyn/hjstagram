@@ -1,0 +1,407 @@
+$link-color: #4395ff;
+
+html { overflow-y:scroll; }
+
+.profile_username{
+    position: relative;
+    left: 450px;
+    bottom: 40px;
+    font-size: 30px;
+    font-weight: 100;
+}
+
+.profile_profileImage_box{
+    width: 30px;
+    height: 30px; 
+    border-radius: 70%;
+    overflow: hidden;
+}
+
+.profile_profileImage{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;  
+    cursor: pointer;
+}
+
+.profile_profileImage_box{
+    width: 150px;
+    height: 150px; 
+    border-radius: 70%;
+    overflow: hidden;
+    position: relative;
+    left: 200px;
+    top: 100px;
+}
+
+.profile_profile_div{   // 해상도 고정 width값 좁게 줘서 중앙쪽 위치시키면 고정 마진0 auto 
+    position: relative;
+    margin: 0 auto;
+    width: 300px;
+}
+
+.profile_profile{
+    position: relative;
+    right: 450px;
+}
+
+.profile_gear{
+    width: 30px;
+    position: relative;
+    left: 40px;
+    bottom: 2px;
+    cursor: pointer;
+}
+
+.modal_profile_gear{
+    P{
+        color: $modal-text;
+        font-weight: bolder;
+        text-align: center;
+        margin-bottom: 40px;
+        margin-top: 6%;
+        cursor: pointer;
+    }
+    .modal_text_red{
+       color: $modal-text-red; 
+    }
+}
+
+.modal_profile_gear{  
+    position: absolute;
+    top: calc(50vh - 150px);
+    align-items: center;
+    width: 400px;
+    height: 265px;
+    border-radius: 0.7rem;
+    background-color: white;
+    left: calc(50vw - 200px);
+}
+
+.modal_profile_gear_text{
+    position: relative;
+}
+
+.modal_background{
+    position: fixed;
+    top:0; left: 0; bottom: 0; right: 0;
+    background: rgba(0, 0, 0, 0.8);
+    z-index: 999;
+  }
+
+.editprofile_div{
+    position: relative;
+    width: 700px;
+    height: 550px;
+    top: 30px;
+    margin: 0 auto;
+}
+
+.editprofile_username{
+    position: relative;
+    left: 100px;
+    bottom: 23px;
+    font-size: 23px;
+    text-align: left;
+}
+
+.editprofile_profileImage_box{
+    position: relative;
+    left: 20px;
+    bottom: 300px;
+}
+
+.editprofile_profile_div{
+    position: relative;
+    left: 360px;
+    bottom: 20px;
+}
+
+.editprofile_label{
+    font-weight: bold;
+    position: relative;
+    margin-right: 10px;
+    width: 130px;
+    top: 7px;
+    text-align: right;
+}
+
+
+.editprofile_form{
+    display: flex;
+    right: 30px;
+}
+
+.editprofile_btn{
+    position: relative;
+    top: 15px;
+    left: 113px;
+}
+
+.editprofile_forgot_password{
+    position: relative;
+    top: 40px;
+    right: 103px;
+    height: 10px;
+    text-align: center;
+    font-size: 15px;
+    font-weight: bolder;
+    a{
+       text-decoration: none;
+    }
+}
+
+.changepassword_textarea{
+    resize: none;
+}
+
+.modal_editprofile_btn{
+    position: relative;
+    left: 165px;
+    bottom: 15px;
+    // border: 1px solid red;
+}
+
+
+.profile_profile_div2{
+    position: relative;
+    margin: 0 auto;
+    // border: 1px solid red;
+    display: flex;
+    width: 300px;
+    font-weight: bold;
+}
+
+.profile_profile_text{
+    margin-right: 30px;
+    cursor: pointer;
+}
+
+.profile_profile_name{
+    position: relative;
+    margin-top: 10px;
+}
+
+.modal_main_point_text{
+    .modal_text_blue2{
+        color: #4395ff;
+        
+    }
+}
+
+
+.modal_profile_follow{  
+    position: absolute;
+    align-items: center;
+    top: calc(50vh - 200px);
+    left: calc(50vw - 200px);
+    width: 400px;
+    height: 400px;
+    border-radius: 0.7rem;
+    background-color: white;
+    border: 1px solid rgb(214, 214, 214);
+}
+
+
+.modal_profile_follow_in{
+    height: 55px;
+}
+
+.modal_profile_follow_text{
+    overflow-y: scroll;
+    overflow-x: hidden;
+    height: 355px;
+    p{
+        color: $modal-text;
+        font-weight: bolder;
+        text-align: center;
+        margin-bottom: 20px;
+        margin-top: 4%;
+        cursor: pointer;
+    }
+}
+
+
+.modal_profile_follow_text::-webkit-scrollbar {
+    background-color: #eeeeee;
+    border-radius: 5vw;
+    width: 10px;
+}
+
+.modal_profile_follow_text::-webkit-scrollbar-thumb {
+    background-color: #a2bece;
+    border-radius: 5vw;
+}
+
+
+
+
+
+.Modal_profile_follow_button2{
+    position: relative;
+    border-radius: 6px;
+    margin-left: 40px;
+    font-size: 17px;
+    border-radius: 6px;
+    background-color: #0095f6;
+    font-weight: 600;
+    color: white;
+    border: 1px solid rgb(255, 255, 255);
+}
+
+.Modal_profile_following_button{
+    position: relative;
+    border-radius: 6px;
+    margin-left: 40px;
+    font-size: 17px;
+    background-color: white;
+    color: #747474;
+    font-weight: 600;
+    border: 1px solid gray;
+}
+
+.Modal_profile_Delete_button{
+    @extend .Modal_profile_following_button
+}
+
+.modal_profile_follow_text{ 
+    .following_text{
+        font-size: 20px;
+        color: black;
+    }
+}
+
+.profile_hr{
+    position: relative;
+    width: 920px;
+    top: 70px;
+    margin: 0% auto;
+}
+
+.profile_bk_1{
+    width: 60px;
+    right: 425px;
+    border: 2px solid black;
+}
+
+.profile_bk_2{
+    width: 60px;
+    right: 11px;
+    border: 2px solid black;
+}
+
+.profile_bk_3{
+    width: 60px;
+    left: 105px;
+    border: 2px solid black;
+}
+
+.profile_tabs{
+    position: relative;
+    display: flex;
+    margin: 0% auto;
+    width: 600px;
+    right: 163px;
+    top: 35px;
+
+
+    // border: 1px solid red;
+    .profile_tabs_button{
+        margin-right: 12px;
+        width: 100px;
+        font-size: 15px;
+        cursor: pointer;
+        // border: 1px red solid;
+        a{
+            text-decoration: none;
+            color: rgb(95, 95, 95);
+        }
+    }
+}
+
+.profile_profiletabs_imges{
+    width: 20px;
+    margin-bottom: 5px;
+}
+
+.profile_div_box{
+    // border: 1px solid red;
+    position: relative;
+    margin: 0 auto;
+    width: 1000px;
+    height: 275px;
+    top: 60px;
+    margin-top: 45px;
+
+    .profile_div_imgbox{
+        // border: 1px solid blue;
+        width: 282px;
+        height: 282px;
+        display: inline-flex;
+        margin-left: 38px;
+        margin-bottom: 40px;
+        cursor: pointer;
+        .profile_div_img{
+            width: 100%;
+            height: 100%;
+            object-fit: cover; 
+           
+        }
+    }
+}
+
+.follow_in_text{
+    color: #0095f6;
+    top: 30px;
+    font-size: bold;
+}
+
+.profile_change_div2{
+    z-index: 999;
+    position: relative;
+    top: 200px;
+}
+
+.profile_change_imgUpload{
+    position: relative;
+    right: 193px;
+    margin-top: 20px;
+    background-color: 30px;
+}
+
+
+.profile_change_div{
+    position: relative;
+    bottom: 250px;
+    object-fit: scale-down;
+}
+
+.profile_change_div_1{
+    position: relative;
+    margin: 0 auto;
+    border:  1px solid rgb(172, 172, 172);
+    background-color: white;
+    width: 800px;
+    height: 560px;
+    top: calc(50vh - 250px);
+    text-align: center;
+    border-radius: 0.7rem;
+    p{
+        font-weight: bold;
+        font-size: 20px;
+        color: #4e4e4e;
+    }
+}
+
+.profile_change_fileupload{
+    width: 250px;
+    position: relative;
+    top: 80px;
+}
+
+.namprofile_button_div{
+    position: relative;
+    top: 13px;
+    right: 150px;
+
+}
