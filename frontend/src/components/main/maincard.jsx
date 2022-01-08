@@ -152,7 +152,7 @@ function MainCard() {
 
         axios.patch(`/api/posts/${ID}/addlike`)
         .then(response => {
-          window.location.reload(); //댓글 새로고침없이 페이지 갱신 
+          window.location.reload(); 
         })
       })
     }
@@ -187,7 +187,7 @@ function MainCard() {
 
         axios.patch(`api/auth/following/${ingid}/${werid}`,  body)
         .then(res => {
-          window.location.reload(); //댓글 새로고침없이 페이지 갱신 
+          window.location.reload(); 
         })
       })
     }
@@ -210,7 +210,7 @@ function MainCard() {
 
         axios.patch(`api/auth/unfollowing/${ingid}/${werid}`,  body)
         .then(res => {
-          window.location.reload(); //댓글 새로고침없이 페이지 갱신 
+          window.location.reload(); 
         })
       }) 
     }
@@ -220,7 +220,7 @@ function MainCard() {
       e.preventDefault(); // 페이지 새로고침 방지
         axios.patch(`api/posts/${ID}/givecomment`, {content:comments})
         .then(response =>{
-          window.location.reload(); //댓글 새로고침없이 페이지 갱신
+          window.location.reload(); 
         })            
     }
 

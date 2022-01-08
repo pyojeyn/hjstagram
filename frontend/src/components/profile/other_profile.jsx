@@ -76,7 +76,7 @@ function Other_Profile(match){
 
         axios.patch(`/api/auth/unfollowing/${whounfollowid}/${ID}`,  body)
         .then(res => {
-         window.location.reload(); //댓글 새로고침없이 페이지 갱신 
+         window.location.reload(); 
         })
       }) 
     }
