@@ -218,6 +218,9 @@ export const idCheck = async (ctx) => {
         if(exists){
             ctx.body = exists;
         }
+        if(exists.username === ctx.state.user.username){
+            ctx.body = "ME";
+        }
         if(!exists){
             ctx.body = { person : "없다고"}
         }
