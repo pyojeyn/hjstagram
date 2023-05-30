@@ -16,6 +16,12 @@ function Other_Profile(match){
     const [ID, setID] = useState("");
     const [IsFollower, setIsFollower] = useState(false);
 
+    let [profile , profile_change] = useState(false);
+    
+    let [follow , follow_change] = useState(false);
+
+    let [follower , follower_change] = useState(false);
+
     useEffect(() => {
         
         const {id} = match;
